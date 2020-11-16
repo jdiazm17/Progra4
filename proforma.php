@@ -37,6 +37,16 @@
                     </ul>
                 </div>
             </nav>
+<br/>
+<br/>
+    
+            <div class= "card-body">
+                <div class="row">
+                    <div class="col-4">
+			    </div>
+
+                </div>
+            </div>
         </div>
     </div>
 

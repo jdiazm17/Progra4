@@ -1,3 +1,27 @@
+
+<!--?php
+  //Lo dejo comentado porque no tenemos el doc de la conexion aun, le puse un supuesto de la conexion en caso que vayamos a hacerla como en clases con el conbd.php
+
+  include 'Base de datos.php';
+  $conexion = Abrir();
+
+  if(isset($_POST['btnConsultar']))
+  {
+	$Nombre = $_POST['txtNombre'];
+  }
+  else
+  {
+	  $Nombre = "";  
+  }
+
+//LLamado del Procedimiento Almacenado
+//  $Productos = "call ConsultarProductos('" . $Nombre . "')";
+  $ListaProductos = $conexion-> query($Productos);
+
+  Cerrar($conexion);
+
+?-->
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -34,8 +58,98 @@
                                 include 'menu.php';
                             ?>
                     </ul>
+
+
                 </div>
             </nav>
+
+ 
+            <div class="card-body">
+            <div class="row">
+
+<div class="col-4">
+
+</div>
+<br/>
+<br/>
+<br/>
+</div>
+
+            <div class="row">
+
+            <div class="col-3">
+                <label>Buscar Productos</label>
+                <input type="text" class="form-control" id="txtNombre" name="txtNombre" />
+            </div>
+
+
+            <div class="col-3">
+                <label>Categoría</label>
+                <select class="form-control" id="cboCategoria" name="cboCategoria" size="1">
+                    <option value="0">--Todas--</option>
+                    <option value="1">Categoria1</option>
+                    <option value="2">Categoria2</option>
+                </select>
+            </div>
+            <div class="col-3">
+				<br/>
+				<input type="submit" class="btn btn-success" id="btnConsultar" name="btnConsultar" value="Consultar" />
+			  </div>
+
+              <div class="col-3">
+				<br/>
+				<input type="submit" class="btn btn-info" id="btnAgregar" name="btnAgregar" value="Agregar Producto" />
+			  </div>
+
+
+</div>
+<br/>
+<br/>
+<br/>
+<br/>
+<div class="row">
+			
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                        <th>Categoría</th>
+                        <th>Proveedor</th>
+                        <th>Unidad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                
+                    <?php
+                    
+                        if(empty($ListaProductos))
+                        {
+                            echo '<tr><td colspan="7">No hay datos disponibles en la tabla</td></tr>';								
+                        }
+                        else
+                        {
+                            While($fila = mysqli_fetch_array($ListaProductos))
+                            {
+                                echo '<td>' . $fila["ID"] . '</td>';
+                                echo '<td>' . $fila["Codigo"] . '</td>';
+                                echo '<td>' . $fila["Nombre"] . '</td>';
+                                echo '<td>' . $fila["Categoria"] . '</td>';
+                                echo '<td>' . $fila["Proveedor"] . '</td>';
+                                echo '<td>' . $fila["Unidad"] . '</td>';
+                                echo '</tr>';
+                            }
+                        }
+                    
+                    ?>
+                
+                </tbody>				
+            </table>
+            
+        
+        </div>
+</div>
         </div>
     </div>
 
