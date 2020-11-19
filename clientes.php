@@ -22,124 +22,96 @@
 ?-->
 
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Proyecto Progra 4</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/simple-sidebar.css">
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 </head>
 
 <body>
-    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Kozko</a>
-        <!-- <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search"> -->
-        <ul class="navbar-nav px-3">
-            <li class="nav-item text-nowrap">
-                <a class="nav-link" href="#">Sign out</a>
-            </li>
-        </ul>
-    </nav>
-
-    <div class="container-fluid">
-        <div class="row">
-            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-                <div class="sidebar-sticky">
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="index.php">
-                                <span data-feather="home"></span>
-                                Dashboard <span class="sr-only">(current)</span>
-                            </a>
-                        </li>
-                            <?php
-                                include 'menu.php';
-                            ?>
-                    </ul>
+    <div class="d-flex" id="wrapper">
+        <div class="border-right" id="sidebar-wrapper">
+            <div class="sidebar-heading">Kozko</div>
+            <div class="list-group list-group-flush">
+                <?php
+                include 'menu.php';
+                ?>
+            </div>
+        </div>
 
 
-                </div>
+
+        <div id="page-content-wrapper">
             </nav>
-
- 
-            <div class="card-body">
-            <div class="row">
-
-<div class="col-4">
-
-</div>
-<br/>
-<br/>
-<br/>
-</div>
+            <br />
+            <br />
+            <br />
 
             <div class="row">
+                <div class="col-2">
+                    <label>Buscar Clientes</label>
+                    <input type="text" class="form-control" id="txtCedula" name="txtCedula" />
+                </div>
 
-            <div class="col-2">
-                <label>Buscar Clientes</label>
-                <input type="text" class="form-control" id="txtCedula" name="txtCedula" />
+                <div class="col-3">
+                    <label>Categoría del Cliente</label>
+                    <select class="form-control" id="cboCategoria" name="cboCategoria" size="1">
+                        <option value="0">--Todas--</option>
+                        <option value="1">Categoria1</option>
+                        <option value="2">Categoria2</option>
+                    </select>
+                </div>
+                <div class="col-2">
+                    <br />
+                    <!-- <input type="submit" class="btn btn-success" id="btnConsultar" name="btnConsultar" value="buscar" /> -->
+                    <button class="btn waves-effect waves-light blue accent-4 btn-large boton" type="submit" name="action">Buscar
+                        <i class="material-icons left">person_search</i>
+                    </button>
+                </div>
+
+                <div class="col-2">
+                    <br />
+                    <!-- <input type="submit" class="btn btn-info" id="btnAgregar" name="btnAgregar" value="Agregar Cliente" /> -->
+                    <button class="btn waves-effect waves-light blue accent-4 btn-large boton" type="submit" name="action">Agregar Cliente
+                        <i class="material-icons left">add</i>
+                    </button>
+                </div>
+
+
             </div>
+            <br />
+            <br />
+            <br />
+            <br />
+            <div class="row">
 
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID Cliente</th>
+                            <th>Nombre a Facturar</th>
+                            <th>Identificación</th>
+                            <th>Teléfono</th>
+                            <th>Categoría</th>
+                            <th>Precio</th>
 
-            <div class="col-3">
-                <label>Factura Electrónicamente</label>
-                <select class="form-control" id="cboFE" name="cboFE" size="1">
-                    <option value="0">--Todas--</option>
-                    <option value="1">Sí</option>
-                    <option value="2">No</option>
-                </select>
-            </div>
-            <div class="col-3">
-                <label>Categoría del Cliente</label>
-                <select class="form-control" id="cboCategoria" name="cboCategoria" size="1">
-                    <option value="0">--Todas--</option>
-                    <option value="1">Categoria1</option>
-                    <option value="2">Categoria2</option>
-                </select>
-            </div>
-            <div class="col-2">
-				<br/>
-				<input type="submit" class="btn btn-success" id="btnConsultar" name="btnConsultar" value="buscar" />
-			  </div>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-              <div class="col-2">
-				<br/>
-				<input type="submit" class="btn btn-info" id="btnAgregar" name="btnAgregar" value="Agregar Cliente" />
-			  </div>
+                        <?php
 
-
-</div>
-<br/>
-<br/>
-<br/>
-<br/>
-<div class="row">
-			
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>ID Cliente</th>
-                        <th>Nombre a Facturar</th>
-                        <th>Identificación</th>
-                        <th>Teléfono</th>
-                        <th>Categoría</th>
-                        <th>Precio</th>
-                        
-                    </tr>
-                </thead>
-                <tbody>
-                
-                    <?php
-                    
-                        if(empty($ListaClientes))
-                        {
-                            echo '<tr><td colspan="7">No hay datos disponibles en la tabla</td></tr>';								
-                        }
-                        else
-                        {
-                            While($fila = mysqli_fetch_array($ListaClientes))
-                            {
+                        if (empty($ListaClientes)) {
+                            echo '<tr><td colspan="7">No hay datos disponibles en la tabla</td></tr>';
+                        } else {
+                            while ($fila = mysqli_fetch_array($ListaClientes)) {
                                 echo '<td>' . $fila["ID"] . '</td>';
                                 echo '<td>' . $fila["Nombre"] . '</td>';
                                 echo '<td>' . $fila["Cedula"] . '</td>';
@@ -149,20 +121,20 @@
                                 echo '</tr>';
                             }
                         }
-                    
-                    ?>
-                
-                </tbody>				
-            </table>
-            
-        
+
+                        ?>
+
+                    </tbody>
+                </table>
+
+
+            </div>
         </div>
-</div>
-        </div>
+    </div>
     </div>
 
     <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-        <script>
-            feather.replace()
-        </script>
+    <script>
+        feather.replace()
+    </script>
 </body>

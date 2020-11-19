@@ -1,3 +1,11 @@
+<?php
+
+
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,81 +14,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Proyecto Progra 4</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/simple-sidebar.css">
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 </head>
 
-<body>
-    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Kozko</a>
-        <!-- <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search"> -->
-        <ul class="navbar-nav px-3">
-            <li class="nav-item text-nowrap">
-                <a class="nav-link" href="#">Sign out</a>
-            </li>
-        </ul>
-    </nav>
 
-    <div class="container-fluid">
-        <div class="row">
-            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-                <div class="sidebar-sticky">
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="index.php">
-                                <span data-feather="home"></span>
-                                Dashboard <span class="sr-only">(current)</span>
-                            </a>
-                        </li>
-                            <?php
-                                include 'menu.php';
-                            ?>
-                    </ul>
-                </div>
-            </nav>
+<div class="d-flex" id="wrapper">
+    <div class="border-right" id="sidebar-wrapper">
+        <div class="sidebar-heading">Kozko</div>
+        <div class="list-group list-group-flush">
+            <?php
+            include 'menu.php';
+            ?>
+        </div>
+    </div>
 
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-                <div class="container-fluid">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-4">
-                                <br />
-                                <a href="proforma.php"><button type="submit" class="btn btn-primary btn-lg" id="btnProforma" name="btnProforma">Proforma</button>
-                            </div>
-                            <div class="col-4">
-                                <br />
-                                <a href="productos.php"><button type="submit" class="btn btn-primary btn-lg" id="btnProductos" name="btnProductos">Productos</button>
-                            </div>
-                            <div class="col-4">
-                                <br />
-                                <a href="proveedores.php"><button type="submit" class="btn btn-primary btn-lg" id="btnProveedores" name="btnAgregar">Proveedores</button>
-                            </div>
-                            <div class="col-4">
-                                <br />
-                                <a href="clientes.php"><button type="submit" class="btn btn-primary btn-lg" id="btnClientes" name="btnAgregar">Clientes</button>
-                            </div>
-                            <div class="col-4">
-                                <br />
-                                <a href="reportes.php"><button type="submit" class="btn btn-primary btn-lg" id="btnReportes" name="btnAgregar">Reportes</button></a>
-                            </div>
+    <br />
+    <br />
+    <br />
+    <br />
+
+
+    <div id="page-content-wrapper">
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            <div class="container-fluid">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <br />
+                            <!--     <a href="proforma.php"><button type="submit" class="btn btn-primary btn-lg" id="btnProforma" name="btnProforma">Proforma</button> -->
+                            <a href="proforma.php" class="waves-effect waves-light btn-large blue accent-3 boton"><i class="material-icons left">description</i>Proforma</a>
+                        </div>
+                        <div class="col-4">
+                            <br />
+                            <!-- <a href="productos.php"><button type="submit" class="btn btn-primary btn-lg" id="btnProductos" name="btnProductos">Productos</button> -->
+                            <a href="productos.php" class="waves-effect waves-light btn-large blue accent-3 boton"><i class="material-icons left">local_grocery_store</i>Productos</a>
+                        </div>
+                        <div class="col-4">
+                            <br />
+                            <!--  <a href="proveedores.php"><button type="submit" class="btn btn-primary btn-lg" id="btnProveedores" name="btnAgregar">Proveedores</button> -->
+                            <a href="proveedores.php" class="waves-effect waves-light btn-large blue accent-3 boton"><i class="material-icons left">local_shipping</i>Proveedores</a>
+
+                        </div>
+                        <div class="col-4">
+                            <br />
+                            <!-- <a href="clientes.php"><button type="submit" class="btn btn-primary btn-lg" id="btnClientes" name="btnAgregar">Clientes</button> -->
+                            <a href="proveedores.php" class="waves-effect waves-light btn-large blue accent-3 boton"><i class="material-icons left">people</i>Clientes</a>
+                        </div>
+                        <div class="col-4">
+                            <br />
+                            <!-- <a href="reportes.php" class="btn btn-success"><i class="material-icons left">contact_phone</i>Proveedores</a> -->
+                            <a href="proveedores.php" class="waves-effect waves-light btn-large blue accent-3 boton"><i class="material-icons left">insert_chart_outlined</i>Reportes</a>
                         </div>
                     </div>
                 </div>
+            </div>
+        </main>
 
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                </div> 
-            </main>
-        </div>
+        <hr>
+        <h5 style="text-align: center;">Reporte</h5>
 
-    
-        <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-        <script>
-            feather.replace()
-        </script>
-        <!-- Bootstrap JS -->
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-        <script src="js/redireccion.js"></script>
+    </div>
+</div>
+
+
+<script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+<script>
+    feather.replace()
+</script>
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+<script src="js/redireccion.js"></script>
 </body>
 
 </html>
