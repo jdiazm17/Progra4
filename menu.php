@@ -1,28 +1,8 @@
 <?php
-echo '<li class="nav-item">
-    <a class="nav-link" href="proforma.php">
-        <span data-feather="file"></span>
-        Proformas
-    </a>
-</li>';
-
-echo '<li class="nav-item">
-    <a class="nav-link" href="productos.php">
-        <span data-feather="shopping-cart"></span>
-        Productos
-    </a>
-</li>';
-
-echo '<li class="nav-item">
-    <a class="nav-link" href="clientes.php">
-        <span data-feather="users"></span>
-        Clientes
-    </a>
-</li>
-<li class="nav-item">
-    <a class="nav-link" href="reportes.php">
-        <span data-feather="bar-chart-2"></span>
-        Reportes
-    </a>
-</li>';
+echo '<li><a href="index.php"><i class="material-icons">dashboard</i><span>Dashboard</span></a></li>
+<li><a href="proforma.php"><i class="material-icons">point_of_sale</i><span>Proforma</span></a></li>
+<li><a href="productos.php"><i class="material-icons">shopping_cart</i><span>Productos</span></a></li>
+<li><a href="clientes.php"><i class="material-icons">people</i><span>Clientes</span></a></li>
+<li><a href="proveedores.php"><i class="material-icons">local_shipping</i><span>Proveedor</span></a></li>
+<li><a href="reportes.php"><i class="material-icons">insert_chart_outlined</i><span>Reporte</span></a></li>'
 ?>
