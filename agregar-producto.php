@@ -1,11 +1,40 @@
 <?php
+include 'database.php';
+$conexion = abrirConexion();
+
+//Llamado al procedimiento almacenado
+//variable $ListaPerfiles
+//IdPerfil, DescripcionPerfil
+
+if (isset($_POST['btnAgregar'])) {
 
 
+    $txtCodigo = $_POST['txtCodigo'];
+    $txtNombre = $_POST['txtNombre'];
+    $cboCategoriaProducto = $_POST['cboCategoriaProducto'];
+    $cboImpuesto = $_POST['cboImpuesto'];
+    $cboMoneda = $_POST['cboMoneda'];
+    $txtCosto = $_POST['txtCosto'];
+    $txtGanancia = $_POST['txtGanancia'];
+    $txtSinImp = $_POST['txtSinImp'];
+    $txtPrecio = $_POST['txtPrecio'];
 
+
+    $sql = "call insertarProducto('$txtCodigo', '$txtNombre','$cboCategoriaProducto', $cboImpuesto, $cboMoneda,$txtCosto,$txtGanancia,
+    $txtSinImp, $txtPrecio)";
+
+    $conexion->next_result();
+
+    if ($conexion->query($sql)) {
+        header('Location: index.php');
+    } else {
+        echo $conexion->error;
+    }
+}
+
+cerrarConexion($conexion);
 
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,7 +56,9 @@
     <form action="" method="post">
         <div class="d-flex" id="wrapper">
             <div class="border-right" id="sidebar-wrapper">
-                <div class="sidebar-heading">Kozko</div>
+                <a href="index.php">
+                    <div class="sidebar-heading">Kozko</div>
+                </a>
                 <div class="list-group list-group-flush">
                     <?php
                     include 'menu.php';
@@ -43,12 +74,12 @@
                         <div class="row">
                             <div class="col-4">
                                 <label>Código</label>
-                                <input placeholder="Código" type="text" class="form-control" id="txtCodigo" name="txtNombre" />
+                                <input placeholder="Código" type="text" class="form-control" id="txtCodigo" name="txtCodigo" />
                             </div>
 
                             <div class="col-8">
                                 <label>Nombre</label>
-                                <input placeholder="Nombre" type="text" class="form-control" id="txtCodigo" name="txtNombre" />
+                                <input placeholder="Nombre" type="text" class="form-control" id="txtNombre" name="txtNombre" />
                             </div>
                         </div>
 
@@ -64,7 +95,7 @@
 
                             <div class="col-3">
                                 <label>Categoría</label>
-                                <select class="form-control" id="cboCategoriaProducto" name="cboCategoriaProducto" size="1">
+                                <select class="form-control" id="cboImpuesto" name="cboImpuesto" size="1">
                                     <option value="0"></option>
                                     <option value="1">Categoria1</option>
                                     <option value="2">Categoria2</option>
@@ -109,6 +140,14 @@
                             </div>
                         </div>
 
+                        <div class="row">
+                            <div class="col-3">
+                                <button class="btn waves-effect waves-light" type="submit" name="btnAgregar">Agregar
+                                    <i class="material-icons right">add</i>
+                                </button>
+                            </div>
+                        </div>
+
                         <br>
                         <br>
                         <div class="row">
@@ -123,23 +162,23 @@
                                                 <th>Precio Final</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <?php
-                                            if (empty($ListaProductos)) {
-                                                echo '<tr><td colspan="7"></td></tr>';
-                                            } else {
-                                                while ($fila = mysqli_fetch_array($ListaProductos)) {
-                                                    echo '<td>' . $fila["ID"] . '</td>';
-                                                    echo '<td>' . $fila["Codigo"] . '</td>';
-                                                    echo '<td>' . $fila["Nombre"] . '</td>';
-                                                    echo '<td>' . $fila["Categoria"] . '</td>';
-                                                    echo '<td>' . $fila["Proveedor"] . '</td>';
-                                                    echo '<td>' . $fila["Unidad"] . '</td>';
-                                                    echo '</tr>';
-                                                }
-                                            }
-                                            ?>
-                                        </tbody>
+                                        <!-- <tbody>
+                                            <//?php
+                                            // if (empty($ListaProductos)) {
+                                            //     echo '<tr><td colspan="7"></td></tr>';
+                                            // } else {
+                                            //     while ($fila = mysqli_fetch_array($ListaProductos)) {
+                                            //         echo '<td>' . $fila["ID"] . '</td>';
+                                            //         echo '<td>' . $fila["Codigo"] . '</td>';
+                                            //         echo '<td>' . $fila["Nombre"] . '</td>';
+                                            //         echo '<td>' . $fila["Categoria"] . '</td>';
+                                            //         echo '<td>' . $fila["Proveedor"] . '</td>';
+                                            //         echo '<td>' . $fila["Unidad"] . '</td>';
+                                            //         echo '</tr>';
+                                            //     }
+                                            // }
+                                            // ?>
+                                        </tbody> -->
                                 </div>
                             </div>
                         </div>

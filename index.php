@@ -62,12 +62,12 @@
                         <div class="col-4">
                             <br />
                             <!-- <a href="clientes.php"><button type="submit" class="btn btn-primary btn-lg" id="btnClientes" name="btnAgregar">Clientes</button> -->
-                            <a href="proveedores.php" class="waves-effect waves-light btn-large blue accent-3 boton"><i class="material-icons left">people</i>Clientes</a>
+                            <a href="clientes.php" class="waves-effect waves-light btn-large blue accent-3 boton"><i class="material-icons left">people</i>Clientes</a>
                         </div>
                         <div class="col-4">
                             <br />
                             <!-- <a href="reportes.php" class="btn btn-success"><i class="material-icons left">contact_phone</i>Proveedores</a> -->
-                            <a href="proveedores.php" class="waves-effect waves-light btn-large blue accent-3 boton"><i class="material-icons left">insert_chart_outlined</i>Reportes</a>
+                            <a href="reportes.php" class="waves-effect waves-light btn-large blue accent-3 boton"><i class="material-icons left">insert_chart_outlined</i>Reportes</a>
                         </div>
                     </div>
                 </div>

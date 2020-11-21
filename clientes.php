@@ -1,25 +1,21 @@
-<!--?php
-  //Lo dejo comentado porque no tenemos el doc de la conexion aun, le puse un supuesto de la conexion en caso que vayamos a hacerla como en clases con el conbd.php
+<?php
+//Lo dejo comentado porque no tenemos el doc de la conexion aun, le puse un supuesto de la conexion en caso que vayamos a hacerla como en clases con el conbd.php
 
-  include 'Base de datos.php';
-  $conexion = Abrir();
+include 'database.php';
+$conexion = abrirConexion();
 
-  if(isset($_POST['btnConsultar']))
-  {
-	$Cedula = $_POST['txtCedula'];
-  }
-  else
-  {
-	  $Cedula = "";  
-  }
+if (isset($_POST['btnBuscarCliente'])) {
+    $Cedula = $_POST['txtCedula'];
+} else {
+    $Cedula = "";
+}
 
-//LLamado del Procedimiento Almacenado
-//  $Clientes = "call ConsultarClientes('" . $Cedula . "')";
-  $ListaClientes = $conexion-> query($Clientes);
 
-  Cerrar($conexion);
+$Clientes = "call consultarCliente('" . $Cedula . "')";
+$ListaClientes = $conexion->query($Clientes);
+cerrarConexion($conexion);
 
-?-->
+?>
 
 <html lang="en">
 
@@ -49,85 +45,74 @@
 
 
         <div id="page-content-wrapper">
-            </nav>
-            <br />
-            <br />
-            <br />
-
-            <div class="row">
-                <div class="col-2">
-                    <label>Buscar Clientes</label>
-                    <input type="text" class="form-control" id="txtCedula" name="txtCedula" />
-                </div>
-
-                <div class="col-3">
-                    <label>Categoría del Cliente</label>
-                    <select class="form-control" id="cboCategoria" name="cboCategoria" size="1">
-                        <option value="0">--Todas--</option>
-                        <option value="1">Categoria1</option>
-                        <option value="2">Categoria2</option>
-                    </select>
-                </div>
-                <div class="col-2">
+            <div class="container-fluid">
+                <div class="card-body">
+                    <div class="row">
+                        <h4>Buscar Cliente</h4>
+                    </div>
+                    <hr>
                     <br />
-                    <!-- <input type="submit" class="btn btn-success" id="btnConsultar" name="btnConsultar" value="buscar" /> -->
-                    <button class="btn waves-effect waves-light blue accent-4 btn-large boton" type="submit" name="action">Buscar
-                        <i class="material-icons left">person_search</i>
-                    </button>
-                </div>
-
-                <div class="col-2">
                     <br />
-                    <!-- <input type="submit" class="btn btn-info" id="btnAgregar" name="btnAgregar" value="Agregar Cliente" /> -->
-                    <button class="btn waves-effect waves-light blue accent-4 btn-large boton" type="submit" name="action">Agregar Cliente
-                        <i class="material-icons left">add</i>
-                    </button>
+                    <div class="row">
+                        <div class="col-4">
+                            <label>Buscar Clientes</label>
+                            <input type="text" class="form-control" id="txtCedula" name="txtCedula" />
+                        </div>
+                        <div class="col-3">
+                            <br />
+                            <button class="btn waves-effect waves-light blue accent-4 btn-large boton" type="button" name="btnBuscarCliente">Buscar
+                                <i class="material-icons left">person_search</i>
+                            </button>
+                        </div>
+
+                        <div class="col-3">
+                            <br />
+                            <a href="agregar-cliente.php" class="waves-effect waves-light btn-large blue accent-3 boton"><i class="material-icons left">add</i>Agregar Cliente</a>
+                        </div>
+
+
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <div class="row">
+
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>ID Cliente</th>
+                                    <th>Nombre Cliente</th>
+                                    <th>Nombre a Facturar</th>
+                                    <th>Teléfono</th>
+                                    <th>Correo</th>
+                                    <th>...</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <?php
+
+                                if (empty($ListaClientes)) {
+                                    echo '<tr><td colspan="7">No hay datos disponibles en la tabla</td></tr>';
+                                } else {
+                                    while ($fila = mysqli_fetch_array($ListaClientes)) {
+                                        echo '<td>' . $fila["ID_CLIENTE"] . '</td>';
+                                        echo '<td>' . $fila["NOMBRE"] . '</td>';
+                                        echo '<td>' . $fila["NOMBRE_PROFORMA"] . '</td>';
+                                        echo '<td>' . $fila["TELEFONO"] . '</td>';
+                                        echo '<td>' . $fila["CORREO"] . '</td>';
+                                        echo '<td><a href="editar-cliente.php?ced='. $fila["ID_CLIENTE"] .'">Actualizar</a>' . '</td>';
+                                        echo '</tr>';
+                                    }
+                                }
+
+                                ?>
+
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-
-
-            </div>
-            <br />
-            <br />
-            <br />
-            <br />
-            <div class="row">
-
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>ID Cliente</th>
-                            <th>Nombre a Facturar</th>
-                            <th>Identificación</th>
-                            <th>Teléfono</th>
-                            <th>Categoría</th>
-                            <th>Precio</th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        <?php
-
-                        if (empty($ListaClientes)) {
-                            echo '<tr><td colspan="7">No hay datos disponibles en la tabla</td></tr>';
-                        } else {
-                            while ($fila = mysqli_fetch_array($ListaClientes)) {
-                                echo '<td>' . $fila["ID"] . '</td>';
-                                echo '<td>' . $fila["Nombre"] . '</td>';
-                                echo '<td>' . $fila["Cedula"] . '</td>';
-                                echo '<td>' . $fila["Telefono"] . '</td>';
-                                echo '<td>' . $fila["Categoria"] . '</td>';
-                                echo '<td>' . $fila["Precio"] . '</td>';
-                                echo '</tr>';
-                            }
-                        }
-
-                        ?>
-
-                    </tbody>
-                </table>
-
-
             </div>
         </div>
     </div>
