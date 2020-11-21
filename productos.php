@@ -53,76 +53,82 @@
 
 
         <div id="page-content-wrapper">
-            </nav>
-            <br>
-            </br>
-            <br />
-            <div class="row">
-                <div class="col-3">
-                    <label>Buscar Productos</label>
-                    <input type="text" class="form-control" id="txtNombre" name="txtNombre" />
-                </div>
-
-                <div class="col-3">
-                    <label>Categoría</label>
-                    <select class="form-control" id="cboCategoria" name="cboCategoria" size="1">
-                        <option value="0">--Todas--</option>
-                        <option value="1">Categoria1</option>
-                        <option value="2">Categoria2</option>
-                    </select>
-                </div>
-                <div class="col-3">
+            <div class="container-fluid">
+                <div class="card-body">
+                    <div class="row">
+                        <h4>Buscar Productos</h4>
+                    </div>
+                    <hr>
                     <br />
-                    <!-- <input type="submit" class="btn btn-success" id="btnConsultar" name="btnConsultar" value="Consultar" /> -->
-                    <a href="#" class="waves-effect waves-light btn-large blue accent-3 boton"><i class="material-icons left">search</i>Consultar</a>
-                </div>
-
-                <div class="col-3">
                     <br />
-                    <!-- <input type="submit" class="btn btn-info" id="btnAgregar" name="btnAgregar" value="Agregar Producto" /> -->
-                    <a href="agregar-producto.php" class="waves-effect waves-light btn-large blue accent-3 boton"><i class="material-icons left">add</i>Agregar Producto</a>
+                    <div class="row">
+                        <div class="col-3">
+                            <label>Buscar Productos</label>
+                            <input type="text" class="form-control" id="txtNombre" name="txtNombre" />
+                        </div>
+
+                        <div class="col-3">
+                            <label>Categoría</label>
+                            <select class="form-control" id="cboCategoria" name="cboCategoria" size="1">
+                                <option value="0">--Todas--</option>
+                                <option value="1">Categoria1</option>
+                                <option value="2">Categoria2</option>
+                            </select>
+                        </div>
+                        <div class="col-3">
+                            <br />
+                            <!-- <input type="submit" class="btn btn-success" id="btnConsultar" name="btnConsultar" value="Consultar" /> -->
+                            <a href="#" class="waves-effect waves-light btn-large blue accent-3 boton"><i class="material-icons left">search</i>Consultar</a>
+                        </div>
+
+                        <div class="col-3">
+                            <br />
+                            <!-- <input type="submit" class="btn btn-info" id="btnAgregar" name="btnAgregar" value="Agregar Producto" /> -->
+                            <a href="agregar-producto.php" class="waves-effect waves-light btn-large blue accent-3 boton"><i class="material-icons left">add</i>Agregar Producto</a>
+                        </div>
+                    </div>
+
+                    <br />
+                    <br />
+                    <br />
+
+
+                    <div class="row">
+                        <table class="striped resposive-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Código</th>
+                                    <th>Nombre</th>
+                                    <th>Categoría</th>
+                                    <th>Proveedor</th>
+                                    <th>Unidad</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <?php
+
+                                if (empty($ListaProductos)) {
+                                    echo '<tr><td colspan="7">No hay datos disponibles en la tabla</td></tr>';
+                                } else {
+                                    while ($fila = mysqli_fetch_array($ListaProductos)) {
+                                        echo '<td>' . $fila["ID"] . '</td>';
+                                        echo '<td>' . $fila["Codigo"] . '</td>';
+                                        echo '<td>' . $fila["Nombre"] . '</td>';
+                                        echo '<td>' . $fila["Categoria"] . '</td>';
+                                        echo '<td>' . $fila["Proveedor"] . '</td>';
+                                        echo '<td>' . $fila["Unidad"] . '</td>';
+                                        echo '</tr>';
+                                    }
+                                }
+
+                                ?>
+
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
-
-            <br />
-            <br />
-            <br />
-
-
-            <div class="row">
-                <table class="striped resposive-table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Código</th>
-                            <th>Nombre</th>
-                            <th>Categoría</th>
-                            <th>Proveedor</th>
-                            <th>Unidad</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        <?php
-
-                        if (empty($ListaProductos)) {
-                            echo '<tr><td colspan="7">No hay datos disponibles en la tabla</td></tr>';
-                        } else {
-                            while ($fila = mysqli_fetch_array($ListaProductos)) {
-                                echo '<td>' . $fila["ID"] . '</td>';
-                                echo '<td>' . $fila["Codigo"] . '</td>';
-                                echo '<td>' . $fila["Nombre"] . '</td>';
-                                echo '<td>' . $fila["Categoria"] . '</td>';
-                                echo '<td>' . $fila["Proveedor"] . '</td>';
-                                echo '<td>' . $fila["Unidad"] . '</td>';
-                                echo '</tr>';
-                            }
-                        }
-
-                        ?>
-
-                    </tbody>
-                </table>
             </div>
         </div>
     </div>
