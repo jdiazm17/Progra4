@@ -174,7 +174,7 @@ cerrarConexion($conexion);
     </form>
 
     <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="consultar-cliente-api.js"></script>
+    <script src="js/consultar-cliente-api.js"></script>
 
 </body>
 
