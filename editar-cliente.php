@@ -142,7 +142,7 @@ cerrarConexion($conexion);
                                 <!-- <button class="btn waves-effect waves-light red accent-4" type="submit" name="btnRegresar">Regresar
                                     <i class="material-icons right"></i>
                                 </button> -->
-                                <a href="productos.php" class="btn waves-effect waves-light red accent-4"><i class="material-icons left"></i>Regresar</a>
+                                <a href="clientes.php" class="btn waves-effect waves-light red accent-4"><i class="material-icons left"></i>Regresar</a>
                             </div>
                             <div class="col-4">
                                 <button class="btn waves-effect waves-light blue accent-4" type="submit" name="btnAgregar">Agregar

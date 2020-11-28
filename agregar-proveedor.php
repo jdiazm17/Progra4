@@ -31,7 +31,7 @@
             <div id="page-content-wrapper">
                 <div class="container-fluid">
                     <div class="card-body">
-                        <h4>Agregar cliente</h4>
+                        <h4>Agregar proveedor</h4>
                         <hr>
                         <div class="row">
                             <div class="col-3">
@@ -65,6 +65,16 @@
                             <div class="col-6">
                                 <label>Dirección</label>
                                 <input placeholder="Dirección" type="text" class="form-control" id="txtNumero" name="txtNumero" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <label>Producto que ofrece</label>
+                                <input placeholder="Producto" type="text" class="form-control" id="txtProducto" name="txtProducto" />
+                            </div>
+                            <div class="col-6">
+                                <label>Precio de costo</label>
+                                <input placeholder="Precio de costo" type="text" class="form-control" id="txtPrecioProducto" name="txtPrecioProducto" />
                             </div>
                         </div>
                         <br>

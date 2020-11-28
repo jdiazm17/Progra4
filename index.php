@@ -39,7 +39,6 @@
 
 
     <div id="page-content-wrapper">
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
             <div class="container-fluid">
                 <div class="card-body">
                     <div class="row">
@@ -81,13 +80,8 @@
 </div>
 
 
-<script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-<script>
-    feather.replace()
-</script>
 <!-- Bootstrap JS -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-<script src="js/redireccion.js"></script>
+
 </body>
 
 </html>

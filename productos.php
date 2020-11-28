@@ -1,25 +1,21 @@
-<!--?php
-  //Lo dejo comentado porque no tenemos el doc de la conexion aun, le puse un supuesto de la conexion en caso que vayamos a hacerla como en clases con el conbd.php
+<?php
+//Lo dejo comentado porque no tenemos el doc de la conexion aun, le puse un supuesto de la conexion en caso que vayamos a hacerla como en clases con el conbd.php
 
-  include 'Base de datos.php';
-  $conexion = Abrir();
+include 'database.php';
+$conexion = abrirConexion();
 
-  if(isset($_POST['btnConsultar']))
-  {
-	$Nombre = $_POST['txtNombre'];
-  }
-  else
-  {
-	  $Nombre = "";  
-  }
+if (isset($_POST['btnBuscarProducto'])) {
+    $Codigo = $_POST['txtNombre'];
+} else {
+    $Codigo = "";
+}
 
-//LLamado del Procedimiento Almacenado
-//  $Productos = "call ConsultarProductos('" . $Nombre . "')";
-  $ListaProductos = $conexion-> query($Productos);
 
-  Cerrar($conexion);
+$Productos = "call consultarProducto('" . $Codigo . "')";
+$ListaProductos = $conexion->query($Productos);
+cerrarConexion($conexion);
 
-?-->
+?>
 
 <html lang="en">
 
@@ -36,105 +32,104 @@
 </head>
 
 <body>
-    <div class="d-flex" id="wrapper">
-        <div class="border-right" id="sidebar-wrapper">
-            <div class="sidebar-heading">Kozko</div>
-            <div class="list-group list-group-flush">
-                <?php
-                include 'menu.php';
-                ?>
+    <form action="" method="post">
+        <div class="d-flex" id="wrapper">
+            <div class="border-right" id="sidebar-wrapper">
+                <div class="sidebar-heading">Kozko</div>
+                <div class="list-group list-group-flush">
+                    <?php
+                    include 'menu.php';
+                    ?>
+                </div>
             </div>
-        </div>
 
 
-        <br />
-        <br />
-        <br />
+            <br />
+            <br />
+            <br />
 
 
-        <div id="page-content-wrapper">
-            <div class="container-fluid">
-                <div class="card-body">
-                    <div class="row">
-                        <h4>Buscar Productos</h4>
-                    </div>
-                    <hr>
-                    <br />
-                    <br />
-                    <div class="row">
-                        <div class="col-3">
-                            <label>Buscar Productos</label>
-                            <input type="text" class="form-control" id="txtNombre" name="txtNombre" />
+            <div id="page-content-wrapper">
+                <div class="container-fluid">
+                    <div class="card-body">
+                        <div class="row">
+                            <h4>Buscar Productos</h4>
+                        </div>
+                        <hr>
+                        <br />
+                        <br />
+                        <div class="row">
+                            <div class="col-3">
+                                <label>Buscar Productos</label>
+                                <input type="text" class="form-control" id="txtNombre" name="txtNombre" />
+                            </div>
+
+                            <div class="col-3">
+                                <label>Categoría</label>
+                                <select class="form-control" id="cboCategoria" name="cboCategoria" size="1">
+                                    <option value="0">--Todas--</option>
+                                    <option value="1">Categoria1</option>
+                                    <option value="2">Categoria2</option>
+                                </select>
+                            </div>
+                            <div class="col-3">
+                                <br />
+                                <button class="btn waves-effect waves-light blue accent-3 btn-large boton" type="submit" name="btnBuscarProducto">Buscar
+                                    <i class="material-icons left">search</i>
+                                </button>
+                            </div>
+
+                            <div class="col-3">
+                                <br />
+                                <!-- <input type="submit" class="btn btn-info" id="btnAgregar" name="btnAgregar" value="Agregar Producto" /> -->
+                                <a href="agregar-producto.php" class="waves-effect waves-light btn-large blue accent-3 boton"><i class="material-icons left">add</i>Agregar Producto</a>
+                            </div>
                         </div>
 
-                        <div class="col-3">
-                            <label>Categoría</label>
-                            <select class="form-control" id="cboCategoria" name="cboCategoria" size="1">
-                                <option value="0">--Todas--</option>
-                                <option value="1">Categoria1</option>
-                                <option value="2">Categoria2</option>
-                            </select>
-                        </div>
-                        <div class="col-3">
-                            <br />
-                            <!-- <input type="submit" class="btn btn-success" id="btnConsultar" name="btnConsultar" value="Consultar" /> -->
-                            <a href="#" class="waves-effect waves-light btn-large blue accent-3 boton"><i class="material-icons left">search</i>Consultar</a>
-                        </div>
-
-                        <div class="col-3">
-                            <br />
-                            <!-- <input type="submit" class="btn btn-info" id="btnAgregar" name="btnAgregar" value="Agregar Producto" /> -->
-                            <a href="agregar-producto.php" class="waves-effect waves-light btn-large blue accent-3 boton"><i class="material-icons left">add</i>Agregar Producto</a>
-                        </div>
-                    </div>
-
-                    <br />
-                    <br />
-                    <br />
+                        <br />
+                        <br />
+                        <br />
 
 
-                    <div class="row">
-                        <table class="striped resposive-table">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Código</th>
-                                    <th>Nombre</th>
-                                    <th>Categoría</th>
-                                    <th>Proveedor</th>
-                                    <th>Unidad</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                        <div class="row">
+                            <table class="striped resposive-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Código</th>
+                                        <th>Nombre</th>
+                                        <th>Editar</th>
+                                        <th>Eliminar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
 
-                                <?php
+                                    <?php
 
-                                if (empty($ListaProductos)) {
-                                    echo '<tr><td colspan="7">No hay datos disponibles en la tabla</td></tr>';
-                                } else {
-                                    while ($fila = mysqli_fetch_array($ListaProductos)) {
-                                        echo '<td>' . $fila["ID"] . '</td>';
-                                        echo '<td>' . $fila["Codigo"] . '</td>';
-                                        echo '<td>' . $fila["Nombre"] . '</td>';
-                                        echo '<td>' . $fila["Categoria"] . '</td>';
-                                        echo '<td>' . $fila["Proveedor"] . '</td>';
-                                        echo '<td>' . $fila["Unidad"] . '</td>';
-                                        echo '</tr>';
+                                    if (empty($ListaProductos)) {
+                                        echo '<tr><td colspan="7">No hay datos disponibles en la tabla</td></tr>';
+                                    } else {
+                                        while ($fila = mysqli_fetch_array($ListaProductos)) {
+                                            echo '<td>' . $fila["ID_PRODUCTO"] . '</td>';
+                                            echo '<td>' . $fila["CODIGO"] . '</td>';
+                                            echo '<td>' . $fila["NOMBRE"] . '</td>';
+                                            echo '<td><a href="editar-producto.php?producto=' . $fila["ID_PRODUCTO"] . '"><i class="material-icons left">edit</i></a>' . '</td>';
+                                            echo '<td><a href="editar-producto.php?' . $fila["ID_PRODUCTO"] . '"><i class="material-icons left">delete</i></a>' . '</td>';
+                                            echo '</tr>';
+                                        }
                                     }
-                                }
 
-                                ?>
+                                    ?>
 
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-    <script>
-        feather.replace()
-    </script>
+        <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+        
+    </form>
 </body>

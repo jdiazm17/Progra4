@@ -1,15 +1,4 @@
-<?php
-//Lo dejo comentado porque no tenemos el doc de la conexion aun, le puse un supuesto de la conexion en caso que vayamos a hacerla como en clases con el conbd.php
 
-include 'database.php';
-$conexion = abrirConexion();
-
-
-
-$Clientes = "SELECT * FROM CLIENTE";
-$ListaClientes = $conexion->query($Clientes);
-cerrarConexion($conexion);
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -62,10 +51,12 @@ cerrarConexion($conexion);
                         <br />
                         <br />
                         <br />
+
                         <div class="row">
                             <div class="col-6">
                                 <label>Código</label>
-                                <input placeholder="Código" type="text" class="form-control" id="txtCodigo" name="txtCodigo" />
+                                <input placeholder="Código" autocomplete="chrome-off" type="text" class="form-control" id="txtCodigo" name="txtCodigo" />
+                                <div id="listaProductos"></div>
                             </div>
                             <div class="col-2">
                                 <label>Cantidad</label>
@@ -78,6 +69,8 @@ cerrarConexion($conexion);
                                     <i class="material-icons right">add</i>
                                 </button>
                             </div>
+
+
                             <div class="col-2">
                                 <br />
                                 <br />
@@ -140,6 +133,7 @@ cerrarConexion($conexion);
                                 </div>
                             </div>
                         </div>
+
                         <br />
                         <div class="row">
                             <table class="striped resposive-table">
@@ -165,6 +159,7 @@ cerrarConexion($conexion);
 
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="js/buscarProducto.js"></script>
 
     <script>
         $(document).ready(function() {

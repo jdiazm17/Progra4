@@ -1,40 +1,19 @@
 <?php
+
+$productoSeleccionado = $_GET['producto'];
+
 include 'database.php';
 $conexion = abrirConexion();
 
+$Productos = "call editarProducto('" . $productoSeleccionado . "')";
+$resultado = $conexion->query($Productos);
+$Registro = mysqli_fetch_array($resultado);
 
-if (isset($_POST['btnAgregar'])) {
-
-
-    $txtCodigo = $_POST['txtCodigo'];
-    $txtNombre = $_POST['txtNombre'];
-    $cboCategoriaProducto = $_POST['cboCategoriaProducto'];
-    $cboImpuesto = $_POST['cboImpuesto'];
-    $cboMoneda = $_POST['cboMoneda'];
-    $txtCosto = $_POST['txtCosto'];
-    $txtGanancia = $_POST['txtGanancia'];
-    $txtSinImp = $_POST['txtSinImp'];
-    $txtPrecio = $_POST['txtPrecio'];
-
-
-    $sql = "call insertarProducto('$txtCodigo', '$txtNombre','$cboCategoriaProducto', '$cboMoneda' ,'$cboImpuesto', $txtSinImp, $txtPrecio, 
-    $txtGanancia, $txtCosto)";
-
-    $conexion->next_result();
-
-    if ($conexion->query($sql)) {
-        echo '<script type="text/javascript">',
-            'mostrarMensaje();',
-            '</script>';
-    } else {
-        echo $conexion->error;
-    }
-}
 
 cerrarConexion($conexion);
 
 ?>
-<!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -51,6 +30,7 @@ cerrarConexion($conexion);
 
 
 <body>
+
     <form action="" method="post">
         <div class="d-flex" id="wrapper">
             <div class="border-right" id="sidebar-wrapper">
@@ -67,17 +47,17 @@ cerrarConexion($conexion);
             <div id="page-content-wrapper">
                 <div class="container-fluid">
                     <div class="card-body">
-                        <h4>Agregar producto</h4>
+                        <h4>Editar producto</h4>
                         <hr>
                         <div class="row">
                             <div class="col-4">
                                 <label>Código</label>
-                                <input placeholder="Código" type="text" class="form-control" id="txtCodigo" name="txtCodigo" />
+                                <input placeholder="Código" type="text" class="form-control" id="txtCodigo" name="txtCodigo" value="<?php if (!empty($productoSeleccionado)) echo $productoSeleccionado; ?>" />
                             </div>
 
                             <div class="col-8">
                                 <label>Nombre</label>
-                                <input placeholder="Nombre" type="text" class="form-control" id="txtNombre" name="txtNombre" />
+                                <input placeholder="Nombre" type="text" class="form-control" id="txtNombre" name="txtNombre" value="<?php echo $Registro["NOMBRE"]; ?>" />
                             </div>
                         </div>
 
@@ -85,15 +65,16 @@ cerrarConexion($conexion);
                             <div class="col-3">
                                 <label>Categoría</label>
                                 <select class="form-control" id="cboCategoriaProducto" name="cboCategoriaProducto" size="1">
-                                    <option value="0"></option>
-                                    <option value="Licor">Licor</option>
+                                    <option value="<?php echo $Registro["CATEGORIA"]; ?>"></option>
+                                    <option value="1">Licor</option>
                                 </select>
                             </div>
 
                             <div class="col-3">
                                 <label>Impuesto</label>
                                 <select class="form-control" id="cboImpuesto" name="cboImpuesto" size="1">
-                                    <option value="0% (Exento)">0% (Exento)</option>
+                                    <option value="0"><?php echo $Registro["CATEGORIA"]; ?></option>
+                                    <option value="1">0% (Exento)</option>
                                 </select>
                             </div>
                         </div>
@@ -105,13 +86,13 @@ cerrarConexion($conexion);
                             <div class="col-3">
                                 <label>Moneda</label>
                                 <select class="form-control" id="cboMoneda" name="cboMoneda" size="1">
-                                    <option value="0"></option>
-                                    <option value="Colones">Colones</option>
+                                    <option value="<?php echo $Registro["MONEDA"]; ?>"></option>
+                                    <option value="1">Colones</option>
                                 </select>
                             </div>
                             <div class="col-3">
                                 <label>Costo</label>
-                                <input placeholder="Costo" oninput="calcularPrecio()" type="text" class="form-control" id="txtCosto" name="txtCosto" />
+                                <input placeholder="Costo" oninput="calcularPrecio()" type="text" class="form-control" id="txtCosto" name="txtCosto" value="<?php echo $Registro["COSTO"]; ?>" />
                             </div>
                         </div>
 
@@ -122,15 +103,15 @@ cerrarConexion($conexion);
                         <div class="row">
                             <div class="col-3">
                                 <label>Ganancia</label>
-                                <input type="text" oninput="calcularPrecio()" class="form-control" id="txtGanancia" name="txtGanancia" />
+                                <input type="text" oninput="calcularPrecio()" class="form-control" id="txtGanancia" name="txtGanancia" value="<?php echo $Registro["GANANCIA"]; ?>" />
                             </div>
                             <div class="col-3">
                                 <label>Precio Sin Imp</label>
-                                <input type="text" oninput="calcularPrecio()" class="form-control" id="txtSinImp" name="txtSinImp" />
+                                <input type="text" oninput="calcularPrecio()" class="form-control" id="txtSinImp" name="txtSinImp" value="<?php echo $Registro["PRECIO_IMP"]; ?>" />
                             </div>
                             <div class="col-3">
                                 <label>Precio Final</label>
-                                <input type="text" class="form-control" id="txtPrecio" name="txtPrecio" />
+                                <input type="text" class="form-control" id="txtPrecio" name="txtPrecio" value="<?php echo $Registro["PRECIO_FINAL"]; ?>" />
                             </div>
                         </div>
 
@@ -150,9 +131,8 @@ cerrarConexion($conexion);
             </div>
         </div>
     </form>
-
-    <script src="vendor/jquery/jquery.min.js"></script>
     <script src="js/calcularPrecio.js"></script>
 </body>
+
 
 </html>

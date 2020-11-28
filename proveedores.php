@@ -57,6 +57,8 @@
                             <a href="agregar-proveedor.php" class="waves-effect waves-light btn-large blue accent-3 boton"><i class="material-icons left">add</i>Agregar Producto</a>
                         </div>
                     </div>
+    
+
 
                     <br />
                     <br />
