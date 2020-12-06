@@ -1,5 +1,4 @@
 <?php
-//Lo dejo comentado porque no tenemos el doc de la conexion aun, le puse un supuesto de la conexion en caso que vayamos a hacerla como en clases con el conbd.php
 
 include 'database.php';
 $conexion = abrirConexion();
@@ -115,6 +114,5 @@ cerrarConexion($conexion);
         </div>
         </div>
 
-        <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
     </form>
 </body>

@@ -1,4 +1,23 @@
+<?php
 
+include 'database.php';
+$conexion = abrirConexion();
+
+$clientes = "call consultarCliente('')";
+$ListaClientes = $conexion->query($clientes);
+
+
+if (isset($_POST['codigo'])) {
+    $txtCodigo = $_POST['codigo'];
+    $sql = "call infoProducto('" . $txtCodigo . "')";
+    $infoProducto = $conexion->query($sql);
+}
+
+
+
+cerrarConexion($conexion);
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -55,79 +74,82 @@
                         <div class="row">
                             <div class="col-6">
                                 <label>Código</label>
-                                <input placeholder="Código" autocomplete="chrome-off" type="text" class="form-control" id="txtCodigo" name="txtCodigo" />
+                                <input placeholder="Código" autocomplete="off" type="text" class="form-control" id="txtCodigo" name="txtCodigo" />
                                 <div id="listaProductos"></div>
                             </div>
                             <div class="col-2">
                                 <label>Cantidad</label>
-                                <input placeholder="Cantidad" type="text" class="form-control" id="txtCantidad" name="txtCantidad" />
+                                <input placeholder="Cantidad" type="number" class="form-control" id="txtCantidad" name="txtCantidad" value="1" />
                             </div>
                             <div class="col-2">
                                 <br />
                                 <br />
-                                <button class="btn blue accent-4 waves-light" type="submit" name="btnAgregar">Agregar
+                                <button class="btn blue accent-4 waves-light" id="btnAgregar" name="btnAgregar">Agregar
                                     <i class="material-icons right">add</i>
                                 </button>
                             </div>
-
-
                             <div class="col-2">
                                 <br />
                                 <br />
                                 <a class="waves-effect blue accent-4 btn modal-trigger" href="#modalProforma">Proforma</a>
-                                <div id="modalProforma" class="modal">
-                                    <div class="modal-content">
-                                        <h4>Proforma</h4>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <h4>Monto del Pago</h4>
-                                                <label>Cantidad</label>
-                                                <input placeholder="" type="text" class="form-control" id="txtCantidad" name="txtCantidad" />
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-4">
-                                                <label>
-                                                    <input type="radio" name="group1">
-                                                    <span>Efectivo</span>
-                                                </label>
-                                            </div>
-                                            <div class="col-4">
-                                                <label>
-                                                    <input type="radio" name="group1">
-                                                    <span>SINPE</span>
-                                                </label>
-                                            </div>
-                                            <div class="col-4">
-                                                <label>
-                                                    <input type="radio" name="group1">
-                                                    <span>Transferencia</span>
-                                                </label>
-                                            </div>
-                                        </div>
+                            </div>
+                        </div>
 
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <label>Monto</label>
-                                                <input placeholder="" type="text" class="form-control" id="txtMonto" name="txtMonto" readonly />
-                                            </div>
-                                            <div class="col-6">
-                                                <label>Devolución</label>
-                                                <input placeholder="Monto a devolver" type="text" class="form-control" id="txtDevolucion" name="txtDevolucion" readonly />
-                                            </div>
+                        <div class="col-2">
+                            <br />
+                            <br />
+                            <div id="modalProforma" class="modal">
+                                <div class="modal-content">
+                                    <h4>Proforma</h4>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <h4>Monto del Pago</h4>
+                                            <label>Cantidad</label>
+                                            <input placeholder="" type="text" class="form-control" id="txtCantidad" name="txtCantidad" />
                                         </div>
                                     </div>
-                                    <div class="modal-footer">
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <br />
-                                                <a href="#!" class="modal-close waves-effect red accent-4 btn">Cancelar</a>
-                                            </div>
-                                            <div class="col-6">
-                                                <br />
-                                                <a href="#!" class="modal-close waves-effect  blue accent-4 btn">Confirmar Pago</a>
-                                            </div>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <label>
+                                                <input type="radio" name="group1">
+                                                <span>Efectivo</span>
+                                            </label>
+                                        </div>
+                                        <div class="col-4">
+                                            <label>
+                                                <input type="radio" name="group1">
+                                                <span>SINPE</span>
+                                            </label>
+                                        </div>
+                                        <div class="col-4">
+                                            <label>
+                                                <input type="radio" name="group1">
+                                                <span>Transferencia</span>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label>Monto</label>
+                                            <input placeholder="" type="text" class="form-control" id="txtMonto" name="txtMonto" readonly />
+                                        </div>
+                                        <div class="col-6">
+                                            <label>Devolución</label>
+                                            <input placeholder="Monto a devolver" type="text" class="form-control" id="txtDevolucion" name="txtDevolucion" readonly />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br />
+                                            <a href="#!" class="modal-close waves-effect red accent-4 btn">Cancelar</a>
+                                        </div>
+                                        <div class="col-6">
+                                            <br />
+                                            <a href="#!" class="modal-close waves-effect  blue accent-4 btn">Confirmar Pago</a>
                                         </div>
                                     </div>
                                 </div>
@@ -136,9 +158,10 @@
 
                         <br />
                         <div class="row">
-                            <table class="striped resposive-table">
+                            <table id="tabla" name="tabla" class="striped resposive-table">
                                 <thead>
                                     <tr>
+                                        <th>...</th>
                                         <th>Producto</th>
                                         <th>Cantidad</th>
                                         <th>Precio Unitario</th>
@@ -147,9 +170,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-
                                 </tbody>
                             </table>
+                        </div>
+
+                        <div id="total" style="display: flex; justify-content: flex-end; font-size: 30px;">
+                            
                         </div>
                     </div>
                 </div>
@@ -166,6 +192,8 @@
             $('.modal').modal();
         });
     </script>
+
+    <script src="js/insertarProducto.js"> </script>
 
 </body>
 
