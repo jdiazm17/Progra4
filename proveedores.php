@@ -1,3 +1,28 @@
+<?php
+
+include 'database.php';
+$conexion = abrirConexion();
+
+//se guarda la conexion de la BD porque despues se necesita cerrar la conexion abierta, luego aqui programamos todo y se termina cerrando la conexion
+
+if (isset($_POST['btnConsultar']))
+{
+    $ID_Proveedor = $_POST['txtNombre'];
+
+}
+else{
+    $ID_Proveedor = "";
+}
+
+$Proveedores = "call consultarProveedores ('" .$ID_Proveedor . "')";
+$ListaProveedores = $conexion -> query($Proveedores);
+
+
+cerrarConexion($conexion);
+
+?>
+
+
 <html lang="en">
 
 <head>
@@ -45,11 +70,11 @@
                             <label>Buscar Proveedor</label>
                             <input type="text" class="form-control" id="txtNombre" name="txtNombre" />
                         </div>
-                        <div class="col-3">
-                            <br />
-                            <!-- <input type="submit" class="btn btn-success" id="btnConsultar" name="btnConsultar" value="Consultar" /> -->
-                            <a href="#" class="waves-effect waves-light btn-large blue accent-3 boton"><i class="material-icons left">search</i>Consultar</a>
-                        </div>
+                        <div class="col-4">
+                                <button class="btn waves-effect waves-light blue accent-4" type="submit" name="btnConsultar">Consultar
+                                    <i class="material-icons right">add</i>
+                                </button>
+                            </div>
 
                         <div class="col-3">
                             <br />
@@ -73,24 +98,24 @@
                                     <th>Código</th>
                                     <th>Nombre</th>
                                     <th>Categoría</th>
-                                    <th>Proveedor</th>
                                     <th>Unidad</th>
+                                    <th>Editar</th>
                                 </tr>
                             </thead>
                             <tbody>
 
                                 <?php
 
-                                if (empty($ListaProductos)) {
+                                if (empty($ListaProveedores)) {
                                     echo '<tr><td colspan="7">No hay datos disponibles en la tabla</td></tr>';
                                 } else {
-                                    while ($fila = mysqli_fetch_array($ListaProductos)) {
-                                        echo '<td>' . $fila["ID"] . '</td>';
+                                    while ($fila = mysqli_fetch_array($ListaProveedores)) {
+                                        echo '<td>' . $fila["ID_Proveedor"] . '</td>';
                                         echo '<td>' . $fila["Codigo"] . '</td>';
-                                        echo '<td>' . $fila["Nombre"] . '</td>';
-                                        echo '<td>' . $fila["Categoria"] . '</td>';
-                                        echo '<td>' . $fila["Proveedor"] . '</td>';
+                                        echo '<td>' . $fila["Nombre_Proveedor"] . '</td>';
+                                        echo '<td>' . $fila["Categoria_Proveedor"] . '</td>';
                                         echo '<td>' . $fila["Unidad"] . '</td>';
+                                        echo '<td><a href="editar-proveedor.php?id_prov=' . $fila["ID_Proveedor"] . '">Editar</a>' . '</td>';
                                         echo '</tr>';
                                     }
                                 }
