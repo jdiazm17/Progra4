@@ -22,7 +22,7 @@ if (isset($_POST['btnAgregar'])) {
     $conexion->next_result();
 
     if ($conexion->query($sql)) {
-        header('Location: index.php');
+        header('Location: clientes.php');
     } else {
         echo $conexion->error;
     }
@@ -47,6 +47,7 @@ cerrarConexion($conexion);
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
 </head>
 
 <body>
@@ -173,6 +174,7 @@ cerrarConexion($conexion);
         </div>
     </form>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="js/consultar-cliente-api.js"></script>
 

@@ -1,4 +1,4 @@
-document.getElementById("btnAgregar").disabled = true;
+//document.getElementById("btnAgregar").disabled = true;
 
 function calcularPrecio() {
     document.getElementById("btnAgregar").disabled = true;

@@ -98,38 +98,34 @@ cerrarConexion($conexion);
                                         <th>ID</th>
                                         <th>Código</th>
                                         <th>Nombre</th>
-                                        <th>Editar</th>
-                                        <th>Eliminar</th>
+                                        <th>...</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-
                                     <?php
-
                                     if (empty($ListaProductos)) {
                                         echo '<tr><td colspan="7">No hay datos disponibles en la tabla</td></tr>';
                                     } else {
                                         while ($fila = mysqli_fetch_array($ListaProductos)) {
+                                            echo '<tr>';
                                             echo '<td>' . $fila["ID_PRODUCTO"] . '</td>';
                                             echo '<td>' . $fila["CODIGO"] . '</td>';
                                             echo '<td>' . $fila["NOMBRE"] . '</td>';
-                                            echo '<td><a href="editar-producto.php?producto=' . $fila["ID_PRODUCTO"] . '"><i class="material-icons left">edit</i></a>' . '</td>';
-                                            echo '<td><a href="editar-producto.php?' . $fila["ID_PRODUCTO"] . '"><i class="material-icons left">delete</i></a>' . '</td>';
+                                            echo '<td id="accion"><a href="editar-producto.php?producto=' . $fila["ID_PRODUCTO"] . '" class="btn waves-effect waves-light blue accent-4"><i class="material-icons right">edit</i></a>' . '<button type="button" class="btn waves-effect waves-light red accent-4 eliminar" onclick="eliminarProducto(' . $fila["ID_PRODUCTO"] . ');"><i class="material-icons right">delete</i></button>' . '</td>';
                                             echo '</tr>';
                                         }
                                     }
-
                                     ?>
-
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-        
+        </div>        
     </form>
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="js/eliminarProducto.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 </body>

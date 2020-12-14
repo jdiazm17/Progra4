@@ -114,6 +114,16 @@ cerrarConexion($conexion);
                                 if (empty($ListaProveedores)) {
                                     echo '<tr><td colspan="7">No hay datos disponibles en la tabla</td></tr>';
                                 } else {
+<<<<<<< HEAD
+                                    while ($fila = mysqli_fetch_array($ListaProductos)) {
+                                        echo '<td>' . $fila["ID"] . '</td>';
+                                        echo '<td>' . $fila["Codigo"] . '</td>';
+                                        echo '<td>' . $fila["Nombre"] . '</td>';
+                                        echo '<td>' . $fila["Categoria"] . '</td>';
+                                        echo '<td>' . $fila["Proveedor"] . '</td>';
+                                        echo '<td>' . $fila["Unidad"] . '</td>';
+                                        echo '<td id="acciones"><a href="editar-cliente.php?ced=' . $fila["ID_CLIENTE"] . '" class="btn waves-effect waves-light blue accent-4"><i class="material-icons right">edit</i></a>' . '<button type="button" class="btn waves-effect waves-light red accent-4 eliminar" onclick="eliminarCliente(' . $fila["ID_CLIENTE"] . ');"><i class="material-icons right">delete</i></button>' . '</td>';
+=======
                                     while ($fila = mysqli_fetch_array($ListaProveedores)) {
                                         echo '<td>' . $fila["Nombre_Proveedor"] . '</td>';
                                         echo '<td>' . $fila["ID_Proveedor"] . '</td>';
@@ -125,6 +135,7 @@ cerrarConexion($conexion);
                                         echo '<td>' . $fila["Producto"] . '</td>';
                                         echo '<td>' . $fila["Precio"] . '</td>';
                                         echo '<td><a href="editar-proveedor.php?id_prov=' . $fila["ID_Proveedor"] . '">Editar</a>' . '</td>';
+>>>>>>> 4746bf453eae71fb9ddfba644cb614c712fcbc01
                                         echo '</tr>';
                                     }
                                 }
