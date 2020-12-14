@@ -1,3 +1,43 @@
+<?php
+
+include 'database.php';
+$conexion = abrirConexion();
+
+//Llamado al procedimiento almacenado
+//variable $ListaPerfiles
+//IdPerfil, DescripcionPerfil
+
+if (isset($_POST['btnAgregar'])) {
+
+    $txtNombreProveedor = $_POST['txtNombreProveedor'];
+    $txtIdProveedor = $_POST['txtIdProveedor'];
+    $txtNombreContacto = $_POST['txtNombreContacto'];
+    $txtCorreo = $_POST['txtCorreo'];
+    $txtTelefono1 = $_POST['txtTelefono1'];
+    $txtTelefono2 = $_POST['txtTelefono2'];
+    $txtDireccion = $_POST['txtDireccion'];
+    $txtProducto = $_POST['txtProducto'];
+    $txtPrecioProducto = $_POST['txtPrecioProducto'];
+
+
+    
+
+    $sql = "call insertarProveedor('$txtNombreProveedor','$txtIdProveedor', '$txtNombreContacto', '$txtCorreo','$txtTelefono1','$txtTelefono2','$txtDireccion','$txtProducto', $txtPrecioProducto)";
+
+    $conexion->next_result();
+
+    if ($conexion->query($sql)) {
+        header('Location: index.php');
+    } else {
+        echo $conexion->error;
+    }
+}
+
+cerrarConexion($conexion);
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,35 +76,35 @@
                         <div class="row">
                             <div class="col-3">
                                 <label>Nombre del proveedor</label>
-                                <input placeholder="Nombre del proveedor" type="text" class="form-control" id="txtCedula" name="txtCedula" />
+                                <input placeholder="Nombre del proveedor" type="text" class="form-control" id="txtNombreProveedor" name="txtNombreProveedor" />
                             </div>
                             <div class="col-3">
                                 <label>Número de identificación</label>
-                                <input placeholder="Número de identificación" type="text" class="form-control" id="txtCedula" name="txtCedula" />
+                                <input placeholder="Número de identificación" type="text" class="form-control" id="txtIdProveedor" name="txtIdProveedor" />
                             </div>
                             <div class="col-3">
                                 <label>Nombre del contacto</label>
-                                <input placeholder="Nombre del cliente" type="text" class="form-control" id="txtNombreCliente" name="txtNombreCliente" />
+                                <input placeholder="Nombre del contacto" type="text" class="form-control" id="txtNombreContacto" name="txtNombreContacto" />
                             </div>
                             <div class="col-3">
                                 <label>Correo electrónico</label>
-                                <input placeholder="Correo electrónico" type="text" class="form-control" id="txtNombreFacturar" name="txtNombreFacturar" />
+                                <input placeholder="Correo electrónico" type="text" class="form-control" id="txtCorreo" name="txtCorreo" />
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-3">
                                 <label>Telefóno #1</label>
-                                <input placeholder="" type="text" class="form-control" id="txtCorreo" name="txtCorreo" />
+                                <input placeholder="" type="text" class="form-control" id="txtTelefono1" name="txtTelefono1" />
                             </div>
 
                             <div class="col-3">
                                 <label>Telefóno #2</label>
-                                <input placeholder="" type="text" class="form-control" id="txtNumero" name="txtNumero" />
+                                <input placeholder="" type="text" class="form-control" id="txtTelefono2" name="txtTelefono2" />
                             </div>
                             <div class="col-6">
                                 <label>Dirección</label>
-                                <input placeholder="Dirección" type="text" class="form-control" id="txtNumero" name="txtNumero" />
+                                <input placeholder="Dirección" type="text" class="form-control" id="txtDireccion" name="txtDireccion" />
                             </div>
                         </div>
                         <div class="row">

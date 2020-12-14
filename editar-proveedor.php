@@ -1,32 +1,54 @@
 <?php
 
   $ID_Proveedor = $_GET['id_prov'];
+	include 'database.php';
+	$conexion = abrirConexion();
 
-  include 'database.php';
-  $conexion = abrirConexion();
-  
-  if(isset($_POST['btnActualizar']))
-  {
-	//Actualizar
-	echo "";
-  }
-  
-  if(isset($_POST['btnEliminar']))
-  {
-	//Eliminar
-	header('Location: ejercicio.php');
-  }
-
-  $Proveedores = "call consultarProveedores ('" .$ID_Proveedor . "')";
-  $ListaProveedores = $conexion -> query($Proveedores);
-  $Registro = mysqli_fetch_array($ListaProveedores);
-
+	if(isset($_POST['btnActualizar']))
+	{
+    $NombreProveedor = $_POST['txtNombreProveedor'];
+    $NombreContacto = $_POST['txtNombreContacto'];
+    $Correo = $_POST['txtCorreo'];
+    $Telefono1 = $_POST['txtTelefono1'];
+    $Telefono2 = $_POST['txtTelefono2'];
+    $Direccion = $_POST['txtDireccion'];
+    $Producto = $_POST['txtProducto'];
+    $PrecioProducto = $_POST['txtPrecioProducto'];
+    
+		$proc = "call ActualizarProveedor('$NombreProveedor', '$NombreContacto' , '$Correo', '$Telefono1', '$Telefono2', '$Direccion', '$Producto', $PrecioProducto, $ID_Proveedor)";
+		$conexion -> next_result();
+		
+		if($conexion -> query($proc))
+		{
+			header('Location: proveedores.php');
+		}
+		else		
+		{
+			echo "Error:" . $conexion->error;			
+		}
+	}
+	
+	if(isset($_POST['btnEliminar']))
+	{
+		$proc = "call EliminarProveedor($ID_Proveedor)";
+		$conexion -> next_result();
+		
+		if($conexion -> query($proc))
+		{
+			header('Location: proveedores.php');
+		}
+		else		
+		{
+			echo "Error:" . $conexion->error;			
+		}
+	}
+	
+	$proveedores = "CALL consultarProveedores($ID_Proveedor)"; 
+	$listaProveedor = $conexion -> query($proveedores);
+	$row = mysqli_fetch_array($listaProveedor);
+		
   cerrarConexion($conexion);
-
-
-?>
-
-
+  ?>
 <html lang="en">
 
 <head>
@@ -42,6 +64,8 @@
 </head>
 
 <body>
+<form action="" method="post">
+
     <div class="d-flex" id="wrapper">
         <div class="border-right" id="sidebar-wrapper">
             <div class="sidebar-heading">Kozko</div>
@@ -60,50 +84,54 @@
 
         <div id="page-content-wrapper">
             <div class="container-fluid">
-                <div class="card-body">
+            <div class="card-body">
+                        <h4>Editar proveedor</h4>
+                        <hr>
+                        <div class="row">
+                            <div class="col-3">
+                                <label>Nombre del proveedor</label>
+                                <input type="text" class="form-control" id="txtNombreProveedor" name="txtNombreProveedor" value="<?php echo $row["Nombre_Proveedor"]; ?>">
+                            </div>
+                            <div class="col-3">
+                                <label>Número de identificación</label>
+                                <input placeholder="Número de identificación" type="text" class="form-control" id="txtIdProveedor" name="txtIdProveedor" readonly="true" value="<?php if (!empty($ID_Proveedor)) echo $ID_Proveedor; ?>" />
 
-                <div class="row">
-                        <h4>Buscar Proveedores</h4>
-                    </div>
+                            </div>
+                            <div class="col-3">
+                                <label>Nombre del contacto</label>
+                                <input placeholder="Nombre del contacto" type="text" class="form-control" id="txtNombreContacto" name="txtNombreContacto" value="<?php echo $row["Nombre_Contacto"]; ?>">
+                            </div>
+                            <div class="col-3">
+                                <label>Correo electrónico</label>
+                                <input placeholder="Correo electrónico" type="text" class="form-control" id="txtCorreo" name="txtCorreo" value="<?php echo $row["Correo_Electronico"]; ?>">
+                            </div>
+                        </div>
 
-                <div class="row">
+                        <div class="row">
+                            <div class="col-3">
+                                <label>Telefóno #1</label>
+                                <input placeholder="" type="text" class="form-control" id="txtTelefono1" name="txtTelefono1" value="<?php echo $row["Telefono1"]; ?>">
+                            </div>
 
-<div class="col-4">
-  <label>ID_Proveedor</label>
-  <input type="text" class="form-control" id="txtIDProveedor" name="txtIDProveedor" readonly="true"
-  value="<?php if(!empty($ID_Proveedor)){ echo $ID_Proveedor; } ?>" />
-</div>
-
-<div class="col-4">
-  <label>Código</label>
-  <input type="text" class="form-control" id="txtCodigo" name="txtCodigo"
-  value="<?php echo $Registro["Codigo"]; ?>" />
-</div>
-
- <div class="col-4">
-  <label>Nombre</label>
-  <input type="text" class="form-control" id="txtNombre" name="txtNombre"
-  value="<?php echo $Registro["Nombre_Proveedor"]; ?>" />
-</div>
-
-<div class="col-4">
-  <label>Código</label>
-  <input type="text" class="form-control" id="txtCodigo" name="txtCodigo"
-  value="<?php echo $Registro["Codigo"]; ?>" />
-</div>
-
-<div class="col-4">
-  <label>Categoria</label>
-  <input type="text" class="form-control" id="txtCategoria" name="txtCategoria"
-  value="<?php echo $Registro["Categoria_Proveedor"]; ?>" />
-</div>
-
-<div class="col-4">
-  <label>Unidad</label>
-  <input type="text" class="form-control" id="txtUnidad" name="txtUnidad"
-  value="<?php echo $Registro["Unidad"]; ?>" />
-</div>
-
+                            <div class="col-3">
+                                <label>Telefóno #2</label>
+                                <input placeholder="" type="text" class="form-control" id="txtTelefono2" name="txtTelefono2" value="<?php echo $row["Telefono1"]; ?>">
+                            </div>
+                            <div class="col-6">
+                                <label>Dirección</label>
+                                <input placeholder="Dirección" type="text" class="form-control" id="txtDireccion" name="txtDireccion" value="<?php echo $row["Direccion"]; ?>">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <label>Producto que ofrece</label>
+                                <input placeholder="Producto" type="text" class="form-control" id="txtProducto" name="txtProducto" value="<?php echo $row["Producto"]; ?>">
+                            </div>
+                            <div class="col-6">
+                                <label>Precio de costo</label>
+                                <input placeholder="Precio de costo" type="text" class="form-control" id="txtPrecioProducto" name="txtPrecioProducto" value="<?php echo $row["Precio"]; ?>">
+                            </div>
+                        </div>
 
                     <br />
                     <br />
@@ -133,4 +161,5 @@
     <script>
         feather.replace()
     </script>
+    </form>
 </body>
