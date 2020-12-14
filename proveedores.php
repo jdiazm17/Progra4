@@ -1,3 +1,28 @@
+<?php
+
+include 'database.php';
+$conexion = abrirConexion();
+
+//se guarda la conexion de la BD porque despues se necesita cerrar la conexion abierta, luego aqui programamos todo y se termina cerrando la conexion
+
+if (isset($_POST['btnBuscarProveedor']))
+{
+    $ID_Proveedor = $_POST['txtIdProveedor'];
+
+}
+else{
+    $ID_Proveedor = "";
+}
+
+$Proveedores = "call consultarProveedores ('" .$ID_Proveedor . "')";
+$ListaProveedores = $conexion -> query($Proveedores);
+
+
+cerrarConexion($conexion);
+
+?>
+
+
 <html lang="en">
 
 <head>
@@ -13,6 +38,7 @@
 </head>
 
 <body>
+<form action="" method="post">
     <div class="d-flex" id="wrapper">
         <div class="border-right" id="sidebar-wrapper">
             <div class="sidebar-heading">Kozko</div>
@@ -41,16 +67,16 @@
                     <br />
                     <br />
                     <div class="row">
-                        <div class="col-4">
-                            <label>Buscar Proveedor</label>
-                            <input type="text" class="form-control" id="txtNombre" name="txtNombre" />
-                        </div>
-                        <div class="col-3">
-                            <br />
-                            <!-- <input type="submit" class="btn btn-success" id="btnConsultar" name="btnConsultar" value="Consultar" /> -->
-                            <a href="#" class="waves-effect waves-light btn-large blue accent-3 boton"><i class="material-icons left">search</i>Consultar</a>
-                        </div>
-
+                    <div class="col-4">
+                                <label>Buscar Proveedores</label>
+                                <input type="text" class="form-control" id="txtIdProveedor" name="txtIdProveedor" />
+                            </div>
+                            <div class="col-3">
+                                <br />
+                                <button class="btn waves-effect waves-light blue accent-4 btn-large boton" type="submit" name="btnBuscarProveedor">Buscar
+                                    <i class="material-icons left">person_search</i>
+                                </button>
+                            </div>
                         <div class="col-3">
                             <br />
                             <!-- <input type="submit" class="btn btn-info" id="btnAgregar" name="btnAgregar" value="Agregar Producto" /> -->
@@ -69,21 +95,26 @@
                         <table class="striped resposive-table">
                             <thead>
                                 <tr>
+                                    <th>Nombre del Proveedor</th>
                                     <th>ID</th>
-                                    <th>Código</th>
-                                    <th>Nombre</th>
-                                    <th>Categoría</th>
-                                    <th>Proveedor</th>
-                                    <th>Unidad</th>
+                                    <th>Nombre del Contacto</th>
+                                    <th>Correo Electrónico</th>
+                                    <th>Telefóno 1</th>
+                                    <th>Telefóno 2</th>
+                                    <th>Dirección</th>
+                                    <th>Producto</th>
+                                    <th>Precio</th>
+                                    <th>...</th>
                                 </tr>
                             </thead>
                             <tbody>
 
                                 <?php
 
-                                if (empty($ListaProductos)) {
+                                if (empty($ListaProveedores)) {
                                     echo '<tr><td colspan="7">No hay datos disponibles en la tabla</td></tr>';
                                 } else {
+<<<<<<< HEAD
                                     while ($fila = mysqli_fetch_array($ListaProductos)) {
                                         echo '<td>' . $fila["ID"] . '</td>';
                                         echo '<td>' . $fila["Codigo"] . '</td>';
@@ -92,6 +123,19 @@
                                         echo '<td>' . $fila["Proveedor"] . '</td>';
                                         echo '<td>' . $fila["Unidad"] . '</td>';
                                         echo '<td id="acciones"><a href="editar-cliente.php?ced=' . $fila["ID_CLIENTE"] . '" class="btn waves-effect waves-light blue accent-4"><i class="material-icons right">edit</i></a>' . '<button type="button" class="btn waves-effect waves-light red accent-4 eliminar" onclick="eliminarCliente(' . $fila["ID_CLIENTE"] . ');"><i class="material-icons right">delete</i></button>' . '</td>';
+=======
+                                    while ($fila = mysqli_fetch_array($ListaProveedores)) {
+                                        echo '<td>' . $fila["Nombre_Proveedor"] . '</td>';
+                                        echo '<td>' . $fila["ID_Proveedor"] . '</td>';
+                                        echo '<td>' . $fila["Nombre_Contacto"] . '</td>';
+                                        echo '<td>' . $fila["Correo_Electronico"] . '</td>';
+                                        echo '<td>' . $fila["Telefono1"] . '</td>';
+                                        echo '<td>' . $fila["Telefono2"] . '</td>';
+                                        echo '<td>' . $fila["Direccion"] . '</td>';
+                                        echo '<td>' . $fila["Producto"] . '</td>';
+                                        echo '<td>' . $fila["Precio"] . '</td>';
+                                        echo '<td><a href="editar-proveedor.php?id_prov=' . $fila["ID_Proveedor"] . '">Editar</a>' . '</td>';
+>>>>>>> 4746bf453eae71fb9ddfba644cb614c712fcbc01
                                         echo '</tr>';
                                     }
                                 }
@@ -107,7 +151,5 @@
     </div>
 
     <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-    <script>
-        feather.replace()
-    </script>
+</form>
 </body>

@@ -1,3 +1,5 @@
+
+
 <?php
 
 include 'database.php';
@@ -115,8 +117,12 @@ cerrarConexion($conexion);
         </div>
 
     </form>
+<<<<<<< HEAD
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="js/eliminarCliente.js"></script>
     
 </body>
+=======
+</body>
+>>>>>>> 4746bf453eae71fb9ddfba644cb614c712fcbc01
