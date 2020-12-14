@@ -17,15 +17,13 @@ if (isset($_POST['btnAgregar'])) {
     $txtPrecio = $_POST['txtPrecio'];
 
 
-    $sql = "call insertarProducto('$txtCodigo', '$txtNombre','$cboCategoriaProducto', '$cboMoneda' ,'$cboImpuesto', $txtSinImp, $txtPrecio, 
+    $sql = "call insertarProducto('$txtCodigo', '$txtNombre','$cboCategoriaProducto', '$cboImpuesto' ,'$cboMoneda', $txtSinImp, $txtPrecio, 
     $txtGanancia, $txtCosto)";
 
     $conexion->next_result();
 
     if ($conexion->query($sql)) {
-        echo '<script type="text/javascript">',
-            'mostrarMensaje();',
-            '</script>';
+        header('Location: productos.php');
     } else {
         echo $conexion->error;
     }
@@ -105,8 +103,9 @@ cerrarConexion($conexion);
                             <div class="col-3">
                                 <label>Moneda</label>
                                 <select class="form-control" id="cboMoneda" name="cboMoneda" size="1">
-                                    <option value="0"></option>
-                                    <option value="Colones">Colones</option>
+                                    <?php
+                                     echo "<option value= '" . 'Colones' . "'>" . 'Colones' . "</option>";
+                                    ?>
                                 </select>
                             </div>
                             <div class="col-3">

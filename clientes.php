@@ -67,14 +67,13 @@ cerrarConexion($conexion);
                                 <br />
                                 <a href="agregar-cliente.php" class="waves-effect waves-light btn-large blue accent-3 boton"><i class="material-icons left">add</i>Agregar Cliente</a>
                             </div>
-
                         </div>
                         <br />
                         <br />
                         <br />
                         <br />
                         <div class="row">
-                            <table class="table table-bordered">
+                            <table class="striped resposive-table">
                                 <thead>
                                     <tr>
                                         <th>ID Cliente</th>
@@ -93,12 +92,13 @@ cerrarConexion($conexion);
                                         echo '<tr><td colspan="7">No hay datos disponibles en la tabla</td></tr>';
                                     } else {
                                         while ($fila = mysqli_fetch_array($ListaClientes)) {
+                                            echo '<tr>';
                                             echo '<td>' . $fila["ID_CLIENTE"] . '</td>';
                                             echo '<td>' . $fila["NOMBRE"] . '</td>';
                                             echo '<td>' . $fila["NOMBRE_PROFORMA"] . '</td>';
                                             echo '<td>' . $fila["TELEFONO"] . '</td>';
                                             echo '<td>' . $fila["CORREO"] . '</td>';
-                                            echo '<td><a href="editar-cliente.php?ced=' . $fila["ID_CLIENTE"] . '">Actualizar</a>' . '</td>';
+                                            echo '<td id="acciones"><a href="editar-cliente.php?ced=' . $fila["ID_CLIENTE"] . '" class="btn waves-effect waves-light blue accent-4"><i class="material-icons right">edit</i></a>' . '<button type="button" class="btn waves-effect waves-light red accent-4 eliminar" onclick="eliminarCliente(' . $fila["ID_CLIENTE"] . ');"><i class="material-icons right">delete</i></button>' . '</td>';
                                             echo '</tr>';
                                         }
                                     }
@@ -115,4 +115,8 @@ cerrarConexion($conexion);
         </div>
 
     </form>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="js/eliminarCliente.js"></script>
+    
 </body>

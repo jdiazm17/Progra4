@@ -114,3 +114,18 @@ h4 {
     border-left: 0;
     padding: 20px 0;
 }
+
+#acciones>button {
+    margin-bottom: 3px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.eliminar {
+    margin-top: 5px;
+}
+
+#accion>button {
+    margin-bottom: 3px;
+    display: block;
+}

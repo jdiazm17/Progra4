@@ -5,6 +5,19 @@ $cedulaSeleccionada = $_GET['ced'];
 include 'database.php';
 $conexion = abrirConexion();
 
+if(isset($_POST["btnActualizar"])) {
+    $txtNombreCliente = $_POST['txtNombreCliente'];
+    $txtNombreFacturar = $_POST['txtNombreFacturar'];
+    $txtCorreo = $_POST['txtCorreo'];
+    $txtNumero = $_POST['txtNumero'];
+    $sql = "call editarCliente('$cedulaSeleccionada','$txtNombreCliente', '$txtNombreFacturar', '$txtNumero', '$txtCorreo')";
+    if ($conexion->query($sql)) {
+        header('Location: clientes.php');
+    } else {
+        echo $conexion->error;
+    }
+}
+
 $Clientes = "call consultarCliente('" . $cedulaSeleccionada . "')";
 $resultado = $conexion->query($Clientes);
 $Registro = mysqli_fetch_array($resultado);
@@ -79,12 +92,14 @@ cerrarConexion($conexion);
                         <div class="row">
                             <div class="col-6">
                                 <label>Correo elctrónico</label>
-                                <input placeholder="Correo electrónico" type="text" class="form-control" id="txtCorreo" name="txtCorreo" />
+                                <input placeholder="Correo electrónico" type="text" class="form-control" id="txtCorreo" name="txtCorreo" 
+                                value="<?php echo $Registro["CORREO"]; ?>"/>
                             </div>
 
                             <div class="col-6">
                                 <label>Número de teléfono</label>
-                                <input placeholder="Número de teléfono" type="text" class="form-control" id="txtNumero" name="txtNumero" />
+                                <input placeholder="Número de teléfono" type="text" class="form-control" id="txtNumero" name="txtNumero" 
+                                value="<?php echo $Registro["TELEFONO"]; ?>"/>
                             </div>
                         </div>
                         <br />
@@ -145,7 +160,7 @@ cerrarConexion($conexion);
                                 <a href="clientes.php" class="btn waves-effect waves-light red accent-4"><i class="material-icons left"></i>Regresar</a>
                             </div>
                             <div class="col-4">
-                                <button class="btn waves-effect waves-light blue accent-4" type="submit" name="btnAgregar">Agregar
+                                <button class="btn waves-effect waves-light blue accent-4" type="submit" name="btnActualizar">Guardar
                                     <i class="material-icons right">add</i>
                                 </button>
                             </div>

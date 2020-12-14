@@ -5,7 +5,27 @@ $productoSeleccionado = $_GET['producto'];
 include 'database.php';
 $conexion = abrirConexion();
 
-$Productos = "call editarProducto('" . $productoSeleccionado . "')";
+if(isset($_POST["btnAgregar"])) {
+    $txtCodigo = $_POST['txtCodigo'];
+    $txtNombre = $_POST['txtNombre'];
+    $cboCategoriaProducto = $_POST['cboCategoriaProducto'];
+    $cboImpuesto = $_POST['cboImpuesto'];
+    $cboMoneda = $_POST['cboMoneda'];
+    $txtCosto = $_POST['txtCosto'];
+    $txtGanancia = $_POST['txtGanancia'];
+    $txtSinImp = $_POST['txtSinImp'];
+    $txtPrecio = $_POST['txtPrecio'];
+
+    $sql = "call editarProducto('$productoSeleccionado','$txtNombre', '$cboCategoriaProducto', '$txtCodigo','$cboImpuesto', '$cboMoneda', $txtCosto, 
+    $txtGanancia, $txtSinImp, $txtPrecio)";
+    if ($conexion->query($sql)) {
+        header('Location: productos.php');
+    } else {
+        echo $conexion->error;
+    }
+}
+
+$Productos = "call consultarProductoID('" . $productoSeleccionado . "')";
 $resultado = $conexion->query($Productos);
 $Registro = mysqli_fetch_array($resultado);
 
@@ -65,16 +85,18 @@ cerrarConexion($conexion);
                             <div class="col-3">
                                 <label>Categoría</label>
                                 <select class="form-control" id="cboCategoriaProducto" name="cboCategoriaProducto" size="1">
-                                    <option value="<?php echo $Registro["CATEGORIA"]; ?>"></option>
-                                    <option value="1">Licor</option>
+                                    <!-- <option value="</?php echo $Registro["CATEGORIA"]; ?>"></option>
+                                    <option value="1">Licor</option> -->
+                                    <?php
+                                    echo "<option value= '" . $Registro["CATEGORIA"] . "'>" . $Registro["CATEGORIA"] . "</option>";
+                                    ?>
                                 </select>
                             </div>
 
                             <div class="col-3">
                                 <label>Impuesto</label>
                                 <select class="form-control" id="cboImpuesto" name="cboImpuesto" size="1">
-                                    <option value="0"><?php echo $Registro["CATEGORIA"]; ?></option>
-                                    <option value="1">0% (Exento)</option>
+                                    <option value="0"><?php echo $Registro["IMPUESTO"]; ?></option>
                                 </select>
                             </div>
                         </div>
@@ -86,8 +108,9 @@ cerrarConexion($conexion);
                             <div class="col-3">
                                 <label>Moneda</label>
                                 <select class="form-control" id="cboMoneda" name="cboMoneda" size="1">
-                                    <option value="<?php echo $Registro["MONEDA"]; ?>"></option>
-                                    <option value="1">Colones</option>
+                                    <?php
+                                         echo "<option value= '" . 'Colones' . "'>" . 'Colones' . "</option>";
+                                    ?>
                                 </select>
                             </div>
                             <div class="col-3">
@@ -116,6 +139,9 @@ cerrarConexion($conexion);
                         </div>
 
                         <div class="row">
+                            <div class="col-3">
+                                <a href="productos.php" class="btn waves-effect waves-light red accent-4"><i class="material-icons left"></i>Regresar</a>
+                            </div>
                             <div class="col-3">
                                 <button class="btn waves-effect waves-light" type="submit" id="btnAgregar" name="btnAgregar">Agregar
                                     <i class="material-icons right">add</i>

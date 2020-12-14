@@ -91,6 +91,7 @@
                                         echo '<td>' . $fila["Categoria"] . '</td>';
                                         echo '<td>' . $fila["Proveedor"] . '</td>';
                                         echo '<td>' . $fila["Unidad"] . '</td>';
+                                        echo '<td id="acciones"><a href="editar-cliente.php?ced=' . $fila["ID_CLIENTE"] . '" class="btn waves-effect waves-light blue accent-4"><i class="material-icons right">edit</i></a>' . '<button type="button" class="btn waves-effect waves-light red accent-4 eliminar" onclick="eliminarCliente(' . $fila["ID_CLIENTE"] . ');"><i class="material-icons right">delete</i></button>' . '</td>';
                                         echo '</tr>';
                                     }
                                 }
