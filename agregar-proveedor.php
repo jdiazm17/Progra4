@@ -2,6 +2,8 @@
 
 include 'database.php';
 $conexion = abrirConexion();
+include 'validar-usuario.php';
+validarUsuario();
 
 //Llamado al procedimiento almacenado
 //variable $ListaPerfiles
@@ -27,7 +29,7 @@ if (isset($_POST['btnAgregar'])) {
     $conexion->next_result();
 
     if ($conexion->query($sql)) {
-        header('Location: index.php');
+        header('Location: proveedores.php');
     } else {
         echo $conexion->error;
     }
@@ -95,12 +97,12 @@ cerrarConexion($conexion);
                         <div class="row">
                             <div class="col-3">
                                 <label>Telefóno #1</label>
-                                <input placeholder="" type="text" class="form-control" id="txtTelefono1" name="txtTelefono1" />
+                                <input placeholder="" type="number" class="form-control" id="txtTelefono1" name="txtTelefono1" />
                             </div>
 
                             <div class="col-3">
                                 <label>Telefóno #2</label>
-                                <input placeholder="" type="text" class="form-control" id="txtTelefono2" name="txtTelefono2" />
+                                <input placeholder="" type="number" class="form-control" id="txtTelefono2" name="txtTelefono2" />
                             </div>
                             <div class="col-6">
                                 <label>Dirección</label>
@@ -114,7 +116,7 @@ cerrarConexion($conexion);
                             </div>
                             <div class="col-6">
                                 <label>Precio de costo</label>
-                                <input placeholder="Precio de costo" type="text" class="form-control" id="txtPrecioProducto" name="txtPrecioProducto" />
+                                <input placeholder="Precio de costo" type="number" class="form-control" id="txtPrecioProducto" name="txtPrecioProducto" />
                             </div>
                         </div>
                         <br>
