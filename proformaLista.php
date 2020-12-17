@@ -2,6 +2,8 @@
 
 include 'database.php';
 $conexion = abrirConexion();
+include 'validar-usuario.php';
+validarUsuario();
 
 
 
@@ -20,7 +22,6 @@ if (isset($_GET['buscar'])) {
     }
 
     $productoBuscado .= '</div>';
-  //  $precioProducto .= '</span>';
     echo $productoBuscado;
 }
 

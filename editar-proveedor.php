@@ -1,11 +1,12 @@
 <?php
 
-  $ID_Proveedor = $_GET['id_prov'];
-	include 'database.php';
-	$conexion = abrirConexion();
+$ID_Proveedor = $_GET['id'];
+include 'database.php';
+$conexion = abrirConexion();
+include 'validar-usuario.php';
+validarUsuario();
 
-	if(isset($_POST['btnActualizar']))
-	{
+if (isset($_POST['btnActualizar'])) {
     $NombreProveedor = $_POST['txtNombreProveedor'];
     $NombreContacto = $_POST['txtNombreContacto'];
     $Correo = $_POST['txtCorreo'];
@@ -14,41 +15,34 @@
     $Direccion = $_POST['txtDireccion'];
     $Producto = $_POST['txtProducto'];
     $PrecioProducto = $_POST['txtPrecioProducto'];
-    
-		$proc = "call ActualizarProveedor('$NombreProveedor', '$NombreContacto' , '$Correo', '$Telefono1', '$Telefono2', '$Direccion', '$Producto', $PrecioProducto, $ID_Proveedor)";
-		$conexion -> next_result();
-		
-		if($conexion -> query($proc))
-		{
-			header('Location: proveedores.php');
-		}
-		else		
-		{
-			echo "Error:" . $conexion->error;			
-		}
-	}
-	
-	if(isset($_POST['btnEliminar']))
-	{
-		$proc = "call EliminarProveedor($ID_Proveedor)";
-		$conexion -> next_result();
-		
-		if($conexion -> query($proc))
-		{
-			header('Location: proveedores.php');
-		}
-		else		
-		{
-			echo "Error:" . $conexion->error;			
-		}
-	}
-	
-	$proveedores = "CALL consultarProveedores($ID_Proveedor)"; 
-	$listaProveedor = $conexion -> query($proveedores);
-	$row = mysqli_fetch_array($listaProveedor);
-		
-  cerrarConexion($conexion);
-  ?>
+
+    $proc = "call ActualizarProveedor('$NombreProveedor', '$NombreContacto' , '$Correo', '$Telefono1', '$Telefono2', '$Direccion', '$Producto', $PrecioProducto, $ID_Proveedor)";
+    $conexion->next_result();
+
+    if ($conexion->query($proc)) {
+        header('Location: proveedores.php');
+    } else {
+        echo "Error:" . $conexion->error;
+    }
+}
+
+if (isset($_POST['btnEliminar'])) {
+    $proc = "call EliminarProveedor($ID_Proveedor)";
+    $conexion->next_result();
+
+    if ($conexion->query($proc)) {
+        header('Location: proveedores.php');
+    } else {
+        echo "Error:" . $conexion->error;
+    }
+}
+
+$proveedores = "CALL consultarProveedores($ID_Proveedor)";
+$listaProveedor = $conexion->query($proveedores);
+$row = mysqli_fetch_array($listaProveedor);
+
+cerrarConexion($conexion);
+?>
 <html lang="en">
 
 <head>
@@ -64,27 +58,27 @@
 </head>
 
 <body>
-<form action="" method="post">
+    <form action="" method="post">
 
-    <div class="d-flex" id="wrapper">
-        <div class="border-right" id="sidebar-wrapper">
-            <div class="sidebar-heading">Kozko</div>
-            <div class="list-group list-group-flush">
-                <?php
-                include 'menu.php';
-                ?>
+        <div class="d-flex" id="wrapper">
+            <div class="border-right" id="sidebar-wrapper">
+                <div class="sidebar-heading">Kozko</div>
+                <div class="list-group list-group-flush">
+                    <?php
+                    include 'menu.php';
+                    ?>
+                </div>
             </div>
-        </div>
 
 
-        <br />
-        <br />
-        <br />
+            <br />
+            <br />
+            <br />
 
 
-        <div id="page-content-wrapper">
-            <div class="container-fluid">
-            <div class="card-body">
+            <div id="page-content-wrapper">
+                <div class="container-fluid">
+                    <div class="card-body">
                         <h4>Editar proveedor</h4>
                         <hr>
                         <div class="row">
@@ -110,12 +104,12 @@
                         <div class="row">
                             <div class="col-3">
                                 <label>Telefóno #1</label>
-                                <input placeholder="" type="text" class="form-control" id="txtTelefono1" name="txtTelefono1" value="<?php echo $row["Telefono1"]; ?>">
+                                <input placeholder="" type="number" class="form-control" id="txtTelefono1" name="txtTelefono1" value="<?php echo $row["Telefono1"]; ?>">
                             </div>
 
                             <div class="col-3">
                                 <label>Telefóno #2</label>
-                                <input placeholder="" type="text" class="form-control" id="txtTelefono2" name="txtTelefono2" value="<?php echo $row["Telefono1"]; ?>">
+                                <input placeholder="" type="number" class="form-control" id="txtTelefono2" name="txtTelefono2" value="<?php echo $row["Telefono1"]; ?>">
                             </div>
                             <div class="col-6">
                                 <label>Dirección</label>
@@ -129,37 +123,36 @@
                             </div>
                             <div class="col-6">
                                 <label>Precio de costo</label>
-                                <input placeholder="Precio de costo" type="text" class="form-control" id="txtPrecioProducto" name="txtPrecioProducto" value="<?php echo $row["Precio"]; ?>">
+                                <input placeholder="Precio de costo" type="number" class="form-control" id="txtPrecioProducto" name="txtPrecioProducto" value="<?php echo $row["Precio"]; ?>">
                             </div>
                         </div>
 
-                    <br />
-                    <br />
-                    <br />
+                        <br />
+                        <br />
+                        <br />
+                        <div class="row">
+                            <div class="col-4">
+                                <a href="proveedores.php" class="btn waves-effect waves-light red accent-4"><i class="material-icons left"></i>Regresar</a>
+                            </div>
+                            <div class="col-4">
+                                <button class="btn waves-effect waves-light blue accent-4" type="submit" name="btnActualizar">Guardar
+                                    <i class="material-icons right">add</i>
+                                </button>
+                            </div>
+                        </div>
 
 
-                    <div class="row">
 
-<div class="col-6">
-  <br/>
-  <input type="submit" class="btn btn-success btn-block" id="btnActualizar" name="btnActualizar" value="Actualizar" />
-</div>
+                    </div>
 
-<div class="col-6">
-  <br/>
-  <input type="submit" class="btn btn-success btn-block" id="btnEliminar" name="btnEliminar" value="Eliminar" />
-</div>
-
-</div>
-
-  </div>
+                </div>
             </div>
         </div>
-    </div>
+        </div>
 
-    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-    <script>
-        feather.replace()
-    </script>
+        <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+        <script>
+            feather.replace()
+        </script>
     </form>
 </body>

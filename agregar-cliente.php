@@ -2,10 +2,8 @@
 
 include 'database.php';
 $conexion = abrirConexion();
-
-//Llamado al procedimiento almacenado
-//variable $ListaPerfiles
-//IdPerfil, DescripcionPerfil
+include 'validar-usuario.php';
+validarUsuario();
 
 if (isset($_POST['btnAgregar'])) {
 
@@ -72,7 +70,7 @@ cerrarConexion($conexion);
                         <div class="row">
                             <div class="col-4">
                                 <label>Número de identificación</label>
-                                <input placeholder="Número de identificación" type="text" class="form-control" id="txtCedula" name="txtCedula" />
+                                <input placeholder="Número de identificación" type="number" class="form-control" id="txtCedula" name="txtCedula" />
                             </div>
                             <div class="col-8">
                                 <br />
@@ -102,7 +100,7 @@ cerrarConexion($conexion);
 
                             <div class="col-6">
                                 <label>Número de teléfono</label>
-                                <input placeholder="Número de teléfono" type="text" class="form-control" id="txtNumero" name="txtNumero" />
+                                <input placeholder="Número de teléfono" type="number" class="form-control" id="txtNumero" name="txtNumero" />
                             </div>
                         </div>
                         <br />
@@ -157,10 +155,7 @@ cerrarConexion($conexion);
                         </div>
                         <div class="row">
                             <div class="col-4">
-                                <!-- <button class="btn waves-effect waves-light red accent-4" type="submit" name="btnRegresar">Regresar
-                                    <i class="material-icons right"></i>
-                                </button> -->
-                                <a href="productos.php" class="btn waves-effect waves-light red accent-4"><i class="material-icons left"></i>Regresar</a>
+                                <a href="clientes.php" class="btn waves-effect waves-light red accent-4"><i class="material-icons left"></i>Regresar</a>
                             </div>
                             <div class="col-4">
                                 <button class="btn waves-effect waves-light blue accent-4" type="submit" name="btnAgregar">Agregar

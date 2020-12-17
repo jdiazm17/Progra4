@@ -1,7 +1,9 @@
 <?php
 
 include 'database.php';
+include 'validar-usuario.php';
 $conexion = abrirConexion();
+validarUsuario();
 
 $clientes = "call consultarCliente('')";
 $ListaClientes = $conexion->query($clientes);

@@ -6,8 +6,8 @@ include 'validar-usuario.php';
 validarUsuario();
 
 if (isset($_GET['id'])) {
-    $cliente = $_GET['id'];
-    $sql = "call eliminarCliente('" . $cliente . "')";
+    $reserva = $_GET['id'];
+    $sql = "call eliminarReserva('" . $reserva . "')";
     $resultado = $conexion->query($sql);
 }
 

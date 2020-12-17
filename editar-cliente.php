@@ -4,6 +4,8 @@ $cedulaSeleccionada = $_GET['ced'];
 
 include 'database.php';
 $conexion = abrirConexion();
+include 'validar-usuario.php';
+validarUsuario();
 
 if(isset($_POST["btnActualizar"])) {
     $txtNombreCliente = $_POST['txtNombreCliente'];
@@ -98,7 +100,7 @@ cerrarConexion($conexion);
 
                             <div class="col-6">
                                 <label>Número de teléfono</label>
-                                <input placeholder="Número de teléfono" type="text" class="form-control" id="txtNumero" name="txtNumero" 
+                                <input placeholder="Número de teléfono" type="number" class="form-control" id="txtNumero" name="txtNumero" 
                                 value="<?php echo $Registro["TELEFONO"]; ?>"/>
                             </div>
                         </div>
@@ -154,9 +156,6 @@ cerrarConexion($conexion);
                         </div>
                         <div class="row">
                             <div class="col-4">
-                                <!-- <button class="btn waves-effect waves-light red accent-4" type="submit" name="btnRegresar">Regresar
-                                    <i class="material-icons right"></i>
-                                </button> -->
                                 <a href="clientes.php" class="btn waves-effect waves-light red accent-4"><i class="material-icons left"></i>Regresar</a>
                             </div>
                             <div class="col-4">

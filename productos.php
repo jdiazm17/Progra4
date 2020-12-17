@@ -1,8 +1,9 @@
 <?php
-//Lo dejo comentado porque no tenemos el doc de la conexion aun, le puse un supuesto de la conexion en caso que vayamos a hacerla como en clases con el conbd.php
 
 include 'database.php';
 $conexion = abrirConexion();
+include 'validar-usuario.php';
+validarUsuario();
 
 if (isset($_POST['btnBuscarProducto'])) {
     $Codigo = $_POST['txtNombre'];

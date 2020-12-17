@@ -1,3 +1,9 @@
+<?php
+
+include 'validar-usuario.php';
+validarUsuario();
+?>
+
 <html lang="en">
 
 <head>

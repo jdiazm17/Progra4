@@ -1,7 +1,8 @@
 <?php
 include 'database.php';
 $conexion = abrirConexion();
-
+include 'validar-usuario.php';
+validarUsuario();
 
 if (isset($_POST['btnAgregar'])) {
 
@@ -15,10 +16,10 @@ if (isset($_POST['btnAgregar'])) {
     $txtGanancia = $_POST['txtGanancia'];
     $txtSinImp = $_POST['txtSinImp'];
     $txtPrecio = $_POST['txtPrecio'];
-
+    $txtInventario = $_POST['txtInventario'];
 
     $sql = "call insertarProducto('$txtCodigo', '$txtNombre','$cboCategoriaProducto', '$cboImpuesto' ,'$cboMoneda', $txtSinImp, $txtPrecio, 
-    $txtGanancia, $txtCosto)";
+    $txtGanancia, $txtCosto, $txtInventario)";
 
     $conexion->next_result();
 
@@ -104,13 +105,17 @@ cerrarConexion($conexion);
                                 <label>Moneda</label>
                                 <select class="form-control" id="cboMoneda" name="cboMoneda" size="1">
                                     <?php
-                                     echo "<option value= '" . 'Colones' . "'>" . 'Colones' . "</option>";
+                                    echo "<option value= '" . 'Colones' . "'>" . 'Colones' . "</option>";
                                     ?>
                                 </select>
                             </div>
                             <div class="col-3">
                                 <label>Costo</label>
-                                <input placeholder="Costo" oninput="calcularPrecio()" type="text" class="form-control" id="txtCosto" name="txtCosto" />
+                                <input placeholder="Costo" oninput="calcularPrecio()" type="number" class="form-control" id="txtCosto" name="txtCosto" />
+                            </div>
+                            <div class="col-3">
+                                <label>Inventario</label>
+                                <input placeholder="Inventario" type="number" class="form-control" id="txtInventario" name="txtInventario" />
                             </div>
                         </div>
 
@@ -121,15 +126,15 @@ cerrarConexion($conexion);
                         <div class="row">
                             <div class="col-3">
                                 <label>Ganancia</label>
-                                <input type="text" oninput="calcularPrecio()" class="form-control" id="txtGanancia" name="txtGanancia" />
+                                <input type="number" oninput="calcularPrecio()" class="form-control" id="txtGanancia" name="txtGanancia" />
                             </div>
                             <div class="col-3">
                                 <label>Precio Sin Imp</label>
-                                <input type="text" oninput="calcularPrecio()" class="form-control" id="txtSinImp" name="txtSinImp" />
+                                <input type="number" oninput="calcularPrecio()" class="form-control" id="txtSinImp" name="txtSinImp" />
                             </div>
                             <div class="col-3">
                                 <label>Precio Final</label>
-                                <input type="text" class="form-control" id="txtPrecio" name="txtPrecio" />
+                                <input type="number" class="form-control" id="txtPrecio" name="txtPrecio" />
                             </div>
                         </div>
 

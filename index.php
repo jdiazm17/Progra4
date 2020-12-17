@@ -1,87 +1,110 @@
 <?php
 
+session_start();
 
+if (isset($_POST['btnIngresar'])) {
+	include 'database.php';
+	$conexion = abrirConexion();
+
+	$txtUsuario = $_POST['txtUsuario'];
+	$txtClave = $_POST['txtClave'];
+	$Usuario = "call Ingreso('$txtUsuario', '$txtClave')";
+	$ListaPromedios = $conexion->query($Usuario);
+	$Registro = mysqli_fetch_array($ListaPromedios);
+
+	if (empty($Registro)) {
+		echo "Usuario no registrado en el sistema";
+	} else {
+		$_SESSION["Nombre"] = $Registro['Nombre'];
+		$_SESSION["Usuario"] = $Registro['Usuario'];
+		$_SESSION["Clave"] = $Registro['Clave'];
+		$_SESSION["Rol"] = $Registro['Rol'];
+		if ($Registro['Rol'] == 'Administrador') {
+			header('refresh:1;url=menu-principal.php');
+		} else {
+			header('refresh:1;url=menu-principal.php');
+		}
+	}
+
+	cerrarConexion($conexion);
+}
 
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proyecto Progra 4</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/simple-sidebar.css">
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>Login</title>
+	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/simple-sidebar.css" rel="stylesheet">
+	<link href="css/styles.css" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
 </head>
 
+<body>
+	<form action="" method="post" onsubmit="return ValidarDatos();" id="login">
 
-<div class="d-flex" id="wrapper">
-    <div class="border-right" id="sidebar-wrapper">
-        <div class="sidebar-heading">Kozko</div>
-        <div class="list-group list-group-flush">
-            <?php
-            include 'menu.php';
-            ?>
-        </div>
-    </div>
+		<div class="d-flex" id="wrapper">
+			<div id="page-content-wrapper">
+				<div class="container-fluid">
+					<div class="card-body">
+						<br />
+						<br />
+						<h2>
+							Kozko
+						</h2>
+						<br />
+						<br />
+						<br />
+						<div class="row justify-content-center align-items-center">
+							<div class="col-4">
+								<label>Usuario</label>
+								<input type="text" class="form-control" id="txtUsuario" name="txtUsuario" />
+							</div>
+						</div>
+						<br />
+						<div class="row justify-content-center align-items-center">
+							<div class="col-4">
+								<label>Clave</label>
+								<input type="password" class="form-control" id="txtClave" name="txtClave" />
+							</div>
+						</div>
+						<br />
+						<div class="row justify-content-center align-items-center center-align">
+							<div class="col-6">
+								<br />
+								<input type="submit" autocomplete="off" class="btn waves-effect waves-light blue accent-4" id="btnIngresar" name="btnIngresar" value="Ingresar" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-    <br />
-    <br />
-    <br />
-    <br />
-
-
-    <div id="page-content-wrapper">
-            <div class="container-fluid">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-4">
-                            <br />
-                            <!--     <a href="proforma.php"><button type="submit" class="btn btn-primary btn-lg" id="btnProforma" name="btnProforma">Proforma</button> -->
-                            <a href="proforma.php" class="waves-effect waves-light btn-large blue accent-3 boton"><i class="material-icons left">description</i>Proforma</a>
-                        </div>
-                        <div class="col-4">
-                            <br />
-                            <!-- <a href="productos.php"><button type="submit" class="btn btn-primary btn-lg" id="btnProductos" name="btnProductos">Productos</button> -->
-                            <a href="productos.php" class="waves-effect waves-light btn-large blue accent-3 boton"><i class="material-icons left">local_grocery_store</i>Productos</a>
-                        </div>
-                        <div class="col-4">
-                            <br />
-                            <!--  <a href="proveedores.php"><button type="submit" class="btn btn-primary btn-lg" id="btnProveedores" name="btnAgregar">Proveedores</button> -->
-                            <a href="proveedores.php" class="waves-effect waves-light btn-large blue accent-3 boton"><i class="material-icons left">local_shipping</i>Proveedores</a>
-
-                        </div>
-                        <div class="col-4">
-                            <br />
-                            <!-- <a href="clientes.php"><button type="submit" class="btn btn-primary btn-lg" id="btnClientes" name="btnAgregar">Clientes</button> -->
-                            <a href="clientes.php" class="waves-effect waves-light btn-large blue accent-3 boton"><i class="material-icons left">people</i>Clientes</a>
-                        </div>
-                        <div class="col-4">
-                            <br />
-                            <!-- <a href="reportes.php" class="btn btn-success"><i class="material-icons left">contact_phone</i>Proveedores</a> -->
-                            <a href="reportes.php" class="waves-effect waves-light btn-large blue accent-3 boton"><i class="material-icons left">insert_chart_outlined</i>Reportes</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
-
-        <hr>
-        <h5 style="text-align: center;">Reporte</h5>
-
-    </div>
-</div>
-
-
-<!-- Bootstrap JS -->
-
+		<script src="vendor/jquery/jquery.min.js"></script>
+		<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+		<script>
+			function ValidarDatos() {
+				localStorage.setItem('XXXXXX', $("#txtClave").val());
+				//alert(localStorage.getItem('NombrePersona'));
+				//localStorage.removeItem('NombrePersona');
+				//localStorage.clear();
+				true;
+			}
+		</script>
+		<script src="js/validarUsuario.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+	</form>
 </body>
 
 </html>

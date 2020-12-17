@@ -6,8 +6,8 @@ include 'validar-usuario.php';
 validarUsuario();
 
 if (isset($_GET['id'])) {
-    $cliente = $_GET['id'];
-    $sql = "call eliminarCliente('" . $cliente . "')";
+    $proveedor = $_GET['id'];
+    $sql = "call EliminarProveedor('" . $proveedor . "')";
     $resultado = $conexion->query($sql);
 }
 
